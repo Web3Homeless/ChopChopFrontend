@@ -1,13 +1,9 @@
-import {
-  AppKitButton,
-  AppKit,
-  defaultWagmiConfig,
-} from "@reown/appkit-wagmi-react-native";
+import { defaultWagmiConfig } from "@reown/appkit-wagmi-react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
-import { StatusBar, View } from "react-native";
-import { sepolia } from "viem/chains";
+import { mainnet } from "viem/chains";
 import { WagmiProvider } from "wagmi";
+import { dynamicClient } from "../../utils/dynamic";
 
 type Props = {
   children: React.ReactNode;
@@ -31,14 +27,17 @@ const metadata = {
   },
 };
 
-const chains = [sepolia] as const; //mainnet, polygon, arbitrum
+const chains = [mainnet] as const; //mainnet, polygon, arbitrum
 
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
 
 export default function ProvidersContext({ children }: Props) {
   return (
     <WagmiProvider config={wagmiConfig}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <dynamicClient.reactNative.WebView />
+      </QueryClientProvider>
     </WagmiProvider>
   );
 }
