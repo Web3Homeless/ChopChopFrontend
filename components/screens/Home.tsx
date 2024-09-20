@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, Image, SafeAreaView, Text, View } from "react-native";
 
 export default function Home({ navigation }: any) {

@@ -1,3 +1,4 @@
+import React from "react";
 import { SafeAreaView, View, Text, Image } from "react-native";
 import ChainsChooseItem from "../ChainsChooseItem";
 
