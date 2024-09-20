@@ -1,12 +1,14 @@
 import '@walletconnect/react-native-compat'
 import { WagmiProvider } from 'wagmi'
-import { sepolia } from '@wagmi/core/chains' //mainnet, polygon, arbitrum
+import { mainnet, sepolia } from '@wagmi/core/chains' //mainnet, polygon, arbitrum
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createAppKit, defaultWagmiConfig, AppKit, AppKitButton } from '@reown/appkit-wagmi-react-native'
 import { StatusBar } from 'expo-status-bar';
 import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { dynamicClient } from './utils/dynamic';
 import React from 'react'
+import { DynamicContextProvider, useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import Inner from './Inner'
 // import { ConnectButton } from './components/ui/ConnectButton'
 // import { DynamicContextProvider, DynamicWidget } from '@dynamic-labs/sdk-react-core';
 // import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
@@ -29,7 +31,7 @@ const metadata = {
   }
 }
 
-const chains = [sepolia] as const //mainnet, polygon, arbitrum
+const chains = [mainnet] as const //mainnet, polygon, arbitrum
 
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata }) //
 
@@ -41,7 +43,6 @@ createAppKit({
   enableAnalytics: true // Optional - defaults to your Cloud configuration,
 })
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -52,22 +53,33 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
+
   return (
     <WagmiProvider config={wagmiConfig}>
       <View style={styles.container}>
         <QueryClientProvider client={queryClient}>
         {/* <AppKitButton /> */}
+        {/* <DynamicContextProvider
+          settings={{
+            environmentId: 'd70a0529-c98e-4361-9e37-b80d2a512df3',
+            initialAuthenticationMode: 'connect-only',
+            enableVisitTrackingOnConnectOnly: false,
+          }}
+        > */}
 
-        <>
+        <Inner></Inner>
+
+        {/* <>
           <dynamicClient.reactNative.WebView />
 
           <SafeAreaView>
             <Button title='Huy' onPress={() => dynamicClient.ui.auth.show()}></Button>
           </SafeAreaView>
-        </>
+        </> */}
             
         <StatusBar style="auto" />
         {/* <AppKit /> */}
+        {/* </DynamicContextProvider> */}
         </QueryClientProvider>
       </View>
     </WagmiProvider>
