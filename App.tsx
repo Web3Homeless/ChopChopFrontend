@@ -4,7 +4,12 @@ import { sepolia } from '@wagmi/core/chains' //mainnet, polygon, arbitrum
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createAppKit, defaultWagmiConfig, AppKit, AppKitButton } from '@reown/appkit-wagmi-react-native'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { dynamicClient } from './utils/dynamic';
+import React from 'react'
+// import { ConnectButton } from './components/ui/ConnectButton'
+// import { DynamicContextProvider, DynamicWidget } from '@dynamic-labs/sdk-react-core';
+// import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 
 // 0. Setup queryClient
 const queryClient = new QueryClient()
@@ -47,17 +52,24 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
+  return (
+    <WagmiProvider config={wagmiConfig}>
+      <View style={styles.container}>
+        <QueryClientProvider client={queryClient}>
+        {/* <AppKitButton /> */}
 
-return (
-  <WagmiProvider config={wagmiConfig}>
-    <View style={styles.container}>
-    <QueryClientProvider client={queryClient}>
-      <AppKitButton />
-      
-      <StatusBar style="auto" />
-        <AppKit />
-      </QueryClientProvider>
-    </View>
-  </WagmiProvider>
-);
+        <>
+          <dynamicClient.reactNative.WebView />
+
+          <SafeAreaView>
+            <Button title='Huy' onPress={() => dynamicClient.ui.auth.show()}></Button>
+          </SafeAreaView>
+        </>
+            
+        <StatusBar style="auto" />
+        {/* <AppKit /> */}
+        </QueryClientProvider>
+      </View>
+    </WagmiProvider>
+  );
 }
