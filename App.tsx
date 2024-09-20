@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./components/screens/Home";
 import ChainsChoose from "./components/screens/ChainsChoose";
 import ProvidersContext from "./components/utils/ProvidersContext";
-import Groups from "./components/screens/Groups";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,11 +23,11 @@ export default function App() {
             component={ChainsChoose}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name={"Groups"}
-            component={Groups}
-            options={{ headerShown: false }}
-          />
+          {/*<Stack.Screen*/}
+          {/*  name={"Groups"}*/}
+          {/*  component={Groups}*/}
+          {/*  options={{ headerShown: false }}*/}
+          {/*/>*/}
         </Stack.Navigator>
       </NavigationContainer>
     </ProvidersContext>

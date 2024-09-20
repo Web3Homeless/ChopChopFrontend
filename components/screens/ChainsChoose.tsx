@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, View, Text, Image } from "react-native";
+import { SafeAreaView, View, Text, Image, ScrollView } from "react-native";
 import ChainsChooseItem from "../ChainsChooseItem";
 
 export default function ChainsChoose() {
@@ -39,9 +39,41 @@ export default function ChainsChoose() {
             ON WITH YOU WANT TO REFUND YOUR PAYMENTS
           </Text>
         </View>
-        <View style={{ flex: 2, width: "90%" }}>
-          <ChainsChooseItem image={""} text={"some chain"} />
-        </View>
+        <ScrollView
+          style={{
+            flex: 2,
+            width: "90%",
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+            marginTop: 20,
+          }}
+        >
+          <ChainsChooseItem
+            image={require("../../assets/ether.png")}
+            text={"Ethereum Main Network"}
+          />
+          <ChainsChooseItem
+            image={require("../../assets/ether.png")}
+            text={"Ethereum Main Network"}
+          />
+          <ChainsChooseItem
+            image={require("../../assets/ether.png")}
+            text={"Ethereum Main Network"}
+          />
+          <ChainsChooseItem
+            image={require("../../assets/ether.png")}
+            text={"Ethereum Main Network"}
+          />
+          <ChainsChooseItem
+            image={require("../../assets/ether.png")}
+            text={"Ethereum Main Network"}
+          />
+          <ChainsChooseItem
+            image={require("../../assets/ether.png")}
+            text={"Ethereum Main Network"}
+          />
+        </ScrollView>
       </View>
     </SafeAreaView>
   );

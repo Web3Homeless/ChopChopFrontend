@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import React from "react";
+import { Text, View, Image } from "react-native";
 
 export default function ChainsChooseItem({
   image,
@@ -17,7 +18,7 @@ export default function ChainsChooseItem({
         gap: 19,
       }}
     >
-      {/*<Image source={require("../assets/images/chains-choose.png")} />*/}
+      <Image source={image} style={{ width: 34, height: 34 }} />
       <Text
         style={{
           fontSize: 18,
