@@ -45,8 +45,10 @@ export default function ChainsChoose() {
             width: "90%",
             display: "flex",
             flexDirection: "column",
-            gap: 10,
             marginTop: 20,
+          }}
+          contentContainerStyle={{
+            rowGap: 10,
           }}
         >
           <ChainsChooseItem
