@@ -1,7 +1,11 @@
 import React from "react";
-import { View, Image, Text, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AccountSVG from "../assets/navigation/account-svg.svg";
+import ContactSVG from "../assets/navigation/contacts-svg.svg";
+import GroupSVG from "../assets/navigation/group-svg.svg";
+import HistorySVG from "../assets/navigation/history-svg.svg";
+import ButtonAddSvg from "../assets/navigation/button-add-svg.svg";
 
 export default function NavigationBar() {
   const route = useRoute();
@@ -47,13 +51,7 @@ export default function NavigationBar() {
               padding: 5,
             }}
           >
-            <Image
-              source={require("../assets/navigation/group.png")}
-              style={{
-                width: 26,
-                height: 21,
-              }}
-            />
+            <GroupSVG width={26} height={26} />
             <Text
               style={{ color: "white", fontSize: 12, fontWeight: "semibold" }}
             >
@@ -79,13 +77,7 @@ export default function NavigationBar() {
             padding: 5,
           }}
         >
-          <Image
-            source={require("../assets/navigation/contact.png")}
-            style={{
-              width: 26,
-              height: 25,
-            }}
-          />
+          <ContactSVG width={26} height={26} />
           <Text
             style={{ color: "white", fontSize: 12, fontWeight: "semibold" }}
           >
@@ -114,13 +106,7 @@ export default function NavigationBar() {
           navigation.navigate("CreateNewGroup");
         }}
       >
-        <Image
-          source={require("../assets/navigation/button-add.png")}
-          style={{
-            width: 81,
-            height: 81,
-          }}
-        />
+        <ButtonAddSvg width={81} height={81} />
       </Pressable>
       <View
         style={{
@@ -144,13 +130,7 @@ export default function NavigationBar() {
             navigation.navigate("History");
           }}
         >
-          <Image
-            source={require("../assets/navigation/history.png")}
-            style={{
-              width: 26,
-              height: 26,
-            }}
-          />
+          <HistorySVG width={26} height={26} />
           <Text
             style={{ color: "white", fontSize: 12, fontWeight: "semibold" }}
           >
