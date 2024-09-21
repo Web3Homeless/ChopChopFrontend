@@ -1,5 +1,6 @@
 import React from "react";
 import { Pressable, View, Text, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function GroupsItem({
   id,
@@ -16,6 +17,7 @@ export default function GroupsItem({
   image?: any;
   isSettled: boolean;
 }) {
+  const navigation = useNavigation();
   return (
     <Pressable
       style={{
@@ -29,6 +31,11 @@ export default function GroupsItem({
         borderRadius: 5,
         gap: 10,
       }}
+      onPress={() =>
+        (navigation as any).navigate("GroupInfo", {
+          name: "GroupInfo",
+        })
+      }
     >
       <View
         style={{
@@ -42,6 +49,7 @@ export default function GroupsItem({
         style={{
           display: "flex",
           flexDirection: "column",
+          marginRight: "auto",
         }}
       >
         <Text
@@ -113,43 +121,46 @@ export default function GroupsItem({
             gap: 5,
           }}
         >
-          <Pressable
-            style={{
-              backgroundColor: "#2F28D0",
-              paddingVertical: 6,
-              paddingHorizontal: 9,
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 5,
-              opacity: isSettled ? 0 : 1,
-            }}
-          >
-            <Text
+          {isSettled ? (
+            <Pressable
               style={{
-                fontSize: 14,
-                color: "white",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#D9D9D9",
+                padding: 14,
+                borderRadius: 5,
               }}
             >
-              SETTLE UP
-            </Text>
-          </Pressable>
-          <Pressable
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#D9D9D9",
-              padding: 7,
-              borderRadius: 5,
-            }}
-          >
-            <Image
-              source={require("../assets/misc/trash.png")}
+              <Image
+                source={require("../assets/misc/trash.png")}
+                style={{
+                  width: 16,
+                  height: 19,
+                }}
+              />
+            </Pressable>
+          ) : (
+            <Pressable
               style={{
-                width: 10,
-                height: 12,
+                backgroundColor: "#2F28D0",
+                paddingVertical: 6,
+                paddingHorizontal: 9,
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 5,
+                opacity: isSettled ? 0 : 1,
               }}
-            />
-          </Pressable>
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: "white",
+                }}
+              >
+                SETTLE UP
+              </Text>
+            </Pressable>
+          )}
         </View>
       </View>
     </Pressable>

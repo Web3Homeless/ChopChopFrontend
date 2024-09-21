@@ -10,6 +10,7 @@ import Groups from "./components/screens/Groups";
 import AccountProfile from "./components/screens/AccountProfile";
 import { useFonts } from "expo-font";
 import CreateNewGroup from "./components/screens/CreateNewGroup";
+import GroupInfo from "./components/GroupInfo";
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +52,11 @@ export default function App() {
           <Stack.Screen
             name={"CreateNewGroup"}
             component={CreateNewGroup}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={"GroupInfo"}
+            component={GroupInfo}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

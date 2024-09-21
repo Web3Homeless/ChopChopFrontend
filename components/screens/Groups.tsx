@@ -147,6 +147,9 @@ export default function Groups({ navigation }: any) {
               flexDirection: "column",
               gap: 5,
             }}
+            onPress={() => {
+              navigation.navigate("CreateNewGroup");
+            }}
           >
             <Image
               source={require("../../assets/misc/plus.png")}

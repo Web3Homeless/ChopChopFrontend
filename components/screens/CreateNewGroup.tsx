@@ -70,6 +70,7 @@ export default function CreateNewGroup() {
                 color: "#2F28D0",
                 fontSize: 20,
                 fontFamily: "roboto",
+                paddingVertical: 5,
               }}
               placeholderTextColor={"rgba(47,40,208,0.6)"}
             />
