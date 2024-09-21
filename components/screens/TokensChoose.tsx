@@ -176,6 +176,7 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
               gap: 10,
               paddingVertical: 13,
             }}
+            onPress={() => navigation.navigate("Groups", { name: "Groups" })}
           >
             <Text
               style={{

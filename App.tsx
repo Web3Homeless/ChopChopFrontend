@@ -6,6 +6,7 @@ import Home from "./components/screens/Home";
 import ChainsChoose from "./components/screens/ChainsChoose";
 import ProvidersContext from "./components/utils/ProvidersContext";
 import TokensChoose from "./components/screens/TokensChoose";
+import Groups from "./components/screens/Groups";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,11 @@ export default function App() {
           <Stack.Screen
             name={"TokensChoose"}
             component={TokensChoose}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={"Groups"}
+            component={Groups}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

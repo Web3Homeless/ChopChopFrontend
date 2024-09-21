@@ -1,20 +1,22 @@
 import React from "react";
-import { Button, SafeAreaView } from "react-native";
-import { dynamicClient } from "../../utils/dynamic";
-import FriendRow from "../friends/FriendRow";
+import { SafeAreaView, View, Image } from "react-native";
 
-type Props = {};
-
-export default function Groups({}: Props) {
+export default function Groups() {
   return (
-    <>
-      <SafeAreaView>
-        <FriendRow></FriendRow>
-        <Button
-          title="Huy"
-          onPress={() => dynamicClient.ui.auth.show()}
-        ></Button>
-      </SafeAreaView>
-    </>
+    <SafeAreaView>
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
+        <Image
+          source={require("../../assets/logo-little.png")}
+          style={{
+            width: 117,
+            height: 31,
+          }}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
