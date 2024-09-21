@@ -16,7 +16,7 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
   const selectionsStore = useSelectionsStore();
 
   useEffect(() => {
-    if (selectionsStore.selectedSourceChains) {
+    if (selectionsStore.selectedSourceChains.length != 0) {
       navigation.navigate("TokensChoose", { name: "TokensChoose" });
     }
   }, []);
