@@ -11,8 +11,12 @@ import GroupsItem from "../GroupsItem";
 import NavigationBar from "../NavigationBar";
 import { RootStackParamList } from "../../types/root-stack";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { billToDebts, calcOweIsOwed, useGroupsStore } from "../../store/groupsStore";
 
 export default function Groups({ navigation }: any) {
+  const groupsStore = useGroupsStore();
+  const userAddress = '0xuser';
+
   const groups = [
     {
       id: "somegroup",
@@ -124,16 +128,20 @@ export default function Groups({ navigation }: any) {
           }}
           showsVerticalScrollIndicator={false}
         >
-          {groups.map((item, index) => (
-            <GroupsItem
-              key={index}
-              id={item.id}
-              groupName={item.groupName}
-              owned={item.owned}
-              owe={item.owe}
-              isSettled={item.isSettled}
-            />
-          ))}
+          {groupsStore.groups.map((item, index) => {
+            const debts = item.bills.flatMap(x => billToDebts(x));
+            const oweOwed = calcOweIsOwed(debts, userAddress);
+            return (
+              <GroupsItem
+                key={index}
+                id={item.id}
+                groupName={item.name}
+                owned={oweOwed.userIsOwed}
+                owe={oweOwed.userOwe}
+                isSettled={oweOwed.userOwe == 0}
+              />
+            );
+          })}
           <Pressable
             key={"add-new-group"}
             style={{
@@ -159,7 +167,7 @@ export default function Groups({ navigation }: any) {
               style={{
                 color: "#2F28D0",
                 fontSize: 14,
-                fontFamily: "roboto",
+                fontFamily: "Roboto",
                 fontWeight: "semibold",
               }}
             >

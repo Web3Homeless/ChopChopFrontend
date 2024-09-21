@@ -8,8 +8,14 @@ import {
   View,
 } from "react-native";
 import NavigationBar from "../NavigationBar";
+import { Group, useGroupsStore } from "../../store/groupsStore";
+import uuid from "react-native-uuid";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CreateNewGroup() {
+  const groupsStore = useGroupsStore();
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View
@@ -88,7 +94,21 @@ export default function CreateNewGroup() {
             paddingVertical: 16,
           }}
         >
-          <Text style={{ fontFamily: "arame", fontSize: 16, color: "white" }}>
+          <Text
+            style={{ fontFamily: "arame", fontSize: 16, color: "white" }}
+            onPress={() => {
+              groupsStore.setGroups([
+                ...groupsStore.groups,
+                {
+                  id: uuid.v4(),
+                  name: "name",
+                  participants: [],
+                  bills: [],
+                } as Group,
+              ]);
+              navigation.navigate("Groups", { name: "Groups" });
+            }}
+          >
             CREATE GROUP
           </Text>
         </Pressable>
