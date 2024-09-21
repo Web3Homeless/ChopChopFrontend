@@ -3,7 +3,7 @@ import { SafeAreaView, View, Image, Text, ScrollView } from "react-native";
 import GroupsItem from "../GroupsItem";
 import NavigationBar from "../NavigationBar";
 
-export default function Groups({ navigation }: { navigation: any }) {
+export default function Groups() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Image
@@ -52,36 +52,42 @@ export default function Groups({ navigation }: { navigation: any }) {
             groupName={"Group Name 1"}
             owned={500}
             owe={1500.22}
+            isSettled={false}
           />
           <GroupsItem
             id={"somegroup"}
             groupName={"Group Name 1"}
             owned={500}
             owe={1500.22}
+            isSettled={true}
           />
           <GroupsItem
             id={"somegroup"}
             groupName={"Group Name 1"}
             owned={500}
             owe={1500.22}
+            isSettled={false}
           />
           <GroupsItem
             id={"somegroup"}
             groupName={"Group Name 1"}
             owned={500}
             owe={1500.22}
+            isSettled={false}
           />
           <GroupsItem
             id={"somegroup"}
             groupName={"Group Name 1"}
             owned={500}
             owe={1500.22}
+            isSettled={false}
           />
           <GroupsItem
             id={"somegroup"}
             groupName={"Group Name 1"}
             owned={500}
             owe={1500.22}
+            isSettled={false}
           />
         </ScrollView>
       </View>

@@ -7,12 +7,14 @@ export default function GroupsItem({
   owned,
   owe,
   image,
+  isSettled,
 }: {
   id: string;
   groupName: string;
   owned: number;
   owe: number;
   image?: any;
+  isSettled: boolean;
 }) {
   return (
     <Pressable
@@ -42,24 +44,61 @@ export default function GroupsItem({
           flexDirection: "column",
         }}
       >
-        <Text style={{ fontSize: 18, fontWeight: "500", marginBottom: 5 }}>
-          {groupName}
-        </Text>
-        <View
+        <Text
           style={{
-            display: "flex",
-            flexDirection: "row",
-            gap: 5,
-            marginBottom: 3,
+            fontSize: 18,
+            fontWeight: "500",
+            marginBottom: 5,
           }}
         >
-          <Text style={{ fontSize: 14, color: "#00C74F" }}>You are owed:</Text>
-          <Text style={{ fontSize: 14, color: "#00C74F" }}>{owned}$</Text>
-        </View>
-        <View style={{ display: "flex", flexDirection: "row", gap: 5 }}>
-          <Text style={{ fontSize: 14, color: "#FF0000" }}>You owe:</Text>
-          <Text style={{ fontSize: 14, color: "#FF0000" }}>{owe}$</Text>
-        </View>
+          {groupName}
+        </Text>
+        {isSettled && (
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 5,
+              marginBottom: 3,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../assets/misc/check-mark-little.png")}
+              style={{
+                width: 16,
+                height: 9,
+              }}
+            />
+            <Text
+              style={{ fontSize: 14, fontFamily: "roboto", color: "#2F28D0" }}
+            >
+              Already Setelled
+            </Text>
+          </View>
+        )}
+        {!isSettled && (
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 5,
+              marginBottom: 3,
+            }}
+          >
+            <Text style={{ fontSize: 14, color: "#00C74F" }}>
+              You are owed:
+            </Text>
+            <Text style={{ fontSize: 14, color: "#00C74F" }}>{owned}$</Text>
+          </View>
+        )}
+        {!isSettled && (
+          <View style={{ display: "flex", flexDirection: "row", gap: 5 }}>
+            <Text style={{ fontSize: 14, color: "#FF0000" }}>You owe:</Text>
+            <Text style={{ fontSize: 14, color: "#FF0000" }}>{owe}$</Text>
+          </View>
+        )}
       </View>
       <View
         style={{
@@ -82,6 +121,7 @@ export default function GroupsItem({
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 5,
+              opacity: isSettled ? 0 : 1,
             }}
           >
             <Text
