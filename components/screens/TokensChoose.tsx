@@ -10,12 +10,21 @@ import {
 import ChainsChooseItem from "../ChainsChooseItem";
 import { useSelectionsStore } from "../../store/userSelectionsStore";
 import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
+import { useChainStore } from "../../store/chainStore";
+import SVGTokens from "../utils/SVGTokens";
+
 
 export default function TokensChoose({ navigation }: { navigation: any }) {
+
+  interface Chain {
+    id: string;
+    tokens: Token[];
+  }
+
   interface Token {
     id: string;
-    image: any;
     text: string;
+
   }
 
   const selectionsStore = useSelectionsStore();
@@ -26,37 +35,112 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
     }
   }, []);
 
-  const tokens: Token[] = [
+  const chains: Chain[] = [
     {
+
       id: "ethereum",
-      image: require("../../assets/chains/ether.png"),
-      text: "ETH",
-    },
-    {
-      id: "bnb",
-      image: require("../../assets/chains/bnb.png"),
-      text: "BNB",
-    },
-    {
-      id: "arbitrum",
-      image: require("../../assets/chains/arbitrum.png"),
-      text: "Arbitrum",
-    },
-    {
-      id: "gnosis",
-      image: require("../../assets/chains/gnosis.png"),
-      text: "Gnosis",
-    },
-    {
-      id: "linea",
-      image: require("../../assets/chains/linea.png"),
-      text: "Linea",
+      tokens: [
+          {
+            id : "usdc",
+            text: "USDC",
+          },
+          {
+            id : "weth",
+            text: "WETH",
+          }
+      ]
     },
     {
       id: "optimism",
-      image: require("../../assets/chains/optimism.png"),
-      text: "Optimism",
+      tokens: [
+        {
+          id : "usdc",
+          text: "USDC",
+        },
+        {
+          id : "op",
+          text: "OP",
+        }
+    ]
     },
+    {
+      id: "zksynck",
+      tokens: [
+        {
+          id : "usdc",
+          text: "USDC",
+        },
+        {
+          id : "zksynck",
+          text: "zkSynck",
+        }
+    ]
+    },
+    {
+      id: "base",
+      tokens: [
+        {
+          id : "usdc",
+          text: "USDC",
+        },
+        {
+          id : "weth",
+          text: "WHETH",
+        }
+    ]
+    },
+    {
+      id: "flow",
+      tokens: [
+        {
+          id : "usdc",
+          text: "USDC",
+        },
+        {
+          id : "wflow",
+          text: "WFLOW",
+        }
+    ]
+    },
+    {
+      id: "bnb",
+      tokens: [
+        {
+          id : "usdc",
+          text: "USDC",
+        },
+        {
+          id : "1inch",
+          text: "1Inch",
+        }
+    ]
+    },
+    {
+      id: "polygon",
+      tokens: [
+        {
+          id : "usdc",
+          text: "USDC",
+        },
+        {
+          id : "weth",
+          text: "WHETH",
+        }
+    ]
+    },
+    {
+      id: "gnosis",
+      tokens: [
+        {
+          id : "usdc",
+          text: "USDC",
+        },
+        {
+          id : "wbtc",
+          text: "WBTC",
+        }
+    ]
+    }
   ];
 
   return (
@@ -109,25 +193,29 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
           }}
           showsVerticalScrollIndicator={false}
         >
-          {tokens.map((item, index) => (
-            <ChainsChooseItem
+          {selectionsStore.selectedSourceChains.map((chainId, chainIndex) => (
+            chains.filter((chain) => chain.id == chainId).map((item, index) => 
+              item.tokens.map((token, tokenIndex) => (
+                <SVGTokens
               key={index}
-              image={item.image}
-              text={item.text}
-              isSelected={selectionsStore.selectedTokens.includes(item.id)}
+              text={token.text}
+              isSelected={selectionsStore.selectedTokens.includes(token.id)}
+              tokenId={token.id}
               setIsSelected={() =>
-                selectionsStore.selectedTokens.includes(item.id)
+                selectionsStore.selectedTokens.includes(token.id)
                   ? selectionsStore.setSelectedTokens(
                       selectionsStore.selectedTokens.filter(
-                        (chainId) => chainId != item.id,
+                        (tokenId) => tokenId != token.id,
                       ),
                     )
                   : selectionsStore.setSelectedTokens([
                       ...selectionsStore.selectedTokens,
-                      item.id,
+                      token.id,
                     ])
               }
             />
+              ))
+              )
           ))}
         </ScrollView>
         <View
