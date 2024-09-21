@@ -3,6 +3,7 @@ import {
   Image,
   Pressable,
   SafeAreaView,
+  ScrollView,
   Text,
   TextInput,
   View,
@@ -11,11 +12,37 @@ import NavigationBar from "../NavigationBar";
 import { Group, useGroupsStore } from "../../store/groupsStore";
 import uuid from "react-native-uuid";
 import { useNavigation } from "@react-navigation/native";
+import ChainsChooseItem from "../ChainsChooseItem";
 
 export default function CreateNewGroup() {
   const groupsStore = useGroupsStore();
   const navigation = useNavigation() as any;
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
+  const [addMemberMode, setAddMemberMode] = useState<boolean>(false);
+
+  const members = [
+    {
+      id: "avatar-1",
+      image: require("../../assets/avatars/avatar-1.png"),
+      text: "member1",
+    },
+    {
+      id: "avatar-2",
+      image: require("../../assets/avatars/avatar-2.png"),
+      text: "member2",
+    },
+    {
+      id: "avatar-3",
+      image: require("../../assets/avatars/avatar-3.png"),
+      text: "member3",
+    },
+    {
+      id: "avatar-4",
+      image: require("../../assets/avatars/avatar-4.png"),
+      text: "member4",
+    },
+  ];
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View
@@ -135,6 +162,9 @@ export default function CreateNewGroup() {
             gap: 10,
             width: "44%",
           }}
+          onPress={() => {
+            setAddMemberMode(!addMemberMode);
+          }}
         >
           <Image
             source={require("../../assets/misc/plus-white.png")}
@@ -143,34 +173,82 @@ export default function CreateNewGroup() {
               height: 16,
             }}
           />
-          <Text style={{ fontFamily: "arame", fontSize: 16, color: "white" }}>
+          <Text
+            style={{
+              fontFamily: "arame",
+              fontSize: 16,
+              color: "white",
+            }}
+          >
             ADD MEMBERS
           </Text>
         </Pressable>
-        <Pressable
-          style={{
-            backgroundColor: "#D9D9D9",
-            borderRadius: 5,
-            justifyContent: "center",
-            alignItems: "center",
-            paddingVertical: 14,
-            flexDirection: "row",
-            gap: 10,
-            width: "44%",
-          }}
-        >
-          <Image
-            source={require("../../assets/misc/share-link.png")}
-            style={{
-              width: 16,
-              height: 16,
-            }}
-          />
-          <Text style={{ fontFamily: "arame", fontSize: 16, color: "#2F28D0" }}>
-            SHARE A LINK
-          </Text>
-        </Pressable>
+        {/*<Pressable*/}
+        {/*  style={{*/}
+        {/*    backgroundColor: "#D9D9D9",*/}
+        {/*    borderRadius: 5,*/}
+        {/*    justifyContent: "center",*/}
+        {/*    alignItems: "center",*/}
+        {/*    paddingVertical: 14,*/}
+        {/*    flexDirection: "row",*/}
+        {/*    gap: 10,*/}
+        {/*    width: "44%",*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  <Image*/}
+        {/*    source={require("../../assets/misc/share-link.png")}*/}
+        {/*    style={{*/}
+        {/*      width: 16,*/}
+        {/*      height: 16,*/}
+        {/*    }}*/}
+        {/*  />*/}
+        {/*  <Text style={{ fontFamily: "arame", fontSize: 16, color: "#2F28D0" }}>*/}
+        {/*    SHARE A LINK*/}
+        {/*  </Text>*/}
+        {/*</Pressable>*/}
       </View>
+      {addMemberMode && (
+        <ScrollView
+          style={{
+            width: "92%",
+            display: "flex",
+            flexDirection: "column",
+            marginTop: 20,
+            paddingVertical: 10,
+            marginHorizontal: 15,
+            marginBottom: "25%",
+          }}
+          contentContainerStyle={{
+            rowGap: 10,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          {members.map((item, index) => (
+            <ChainsChooseItem
+              key={index}
+              image={item.image}
+              text={item.text}
+              isSelected={true}
+              setIsSelected={() => {}}
+              // isSelected={selectionsStore.selectedSourceChains.includes(
+              //   item.id,
+              // )}
+              // setIsSelected={() =>
+              //   selectionsStore.selectedSourceChains.includes(item.id)
+              //     ? selectionsStore.setSelectedSourceChains(
+              //         selectionsStore.selectedSourceChains.filter(
+              //           (chainId) => chainId != item.id,
+              //         ),
+              //       )
+              //     : selectionsStore.setSelectedSourceChains([
+              //         ...selectionsStore.selectedSourceChains,
+              //         item.id,
+              //       ])
+              // }
+            />
+          ))}
+        </ScrollView>
+      )}
       <NavigationBar />
     </SafeAreaView>
   );
