@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import ChainsChooseItem from "../ChainsChooseItem";
 import { useSelectionsStore } from "../../store/userSelectionsStore";
+import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
 
 export default function TokensChoose({ navigation }: { navigation: any }) {
   interface Token {
@@ -21,7 +22,7 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
 
   useEffect(() => {
     if (selectionsStore.selectedSourceChains) {
-      navigation.navigate("Groups", { name: "Groups" })    
+      navigation.navigate("Groups", { name: "Groups" });
     }
   }, []);
 
@@ -81,10 +82,7 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
             width: "80%",
           }}
         >
-          <Image
-            source={require("../../assets/logo-blue.png")}
-            style={{ width: 170, height: 90 }}
-          />
+          <LogoBlueSVG width={170} height={90} />
           <Text
             style={{
               fontSize: 24,
@@ -120,9 +118,14 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
               setIsSelected={() =>
                 selectionsStore.selectedTokens.includes(item.id)
                   ? selectionsStore.setSelectedTokens(
-                    selectionsStore.selectedTokens.filter((chainId) => chainId != item.id),
+                      selectionsStore.selectedTokens.filter(
+                        (chainId) => chainId != item.id,
+                      ),
                     )
-                  : selectionsStore.setSelectedTokens([...selectionsStore.selectedTokens, item.id])
+                  : selectionsStore.setSelectedTokens([
+                      ...selectionsStore.selectedTokens,
+                      item.id,
+                    ])
               }
             />
           ))}

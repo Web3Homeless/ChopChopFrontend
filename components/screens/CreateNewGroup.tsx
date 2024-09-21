@@ -13,6 +13,7 @@ import { Group, useGroupsStore } from "../../store/groupsStore";
 import uuid from "react-native-uuid";
 import { useNavigation } from "@react-navigation/native";
 import ChainsChooseItem from "../ChainsChooseItem";
+import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
 
 export default function CreateNewGroup() {
   const groupsStore = useGroupsStore();
@@ -52,13 +53,7 @@ export default function CreateNewGroup() {
           marginBottom: 23,
         }}
       >
-        <Image
-          source={require("../../assets/logo-blue.png")}
-          style={{
-            width: 170,
-            height: 90,
-          }}
-        />
+        <LogoBlueSVG width={170} height={90} />
       </View>
       <View style={{ flexDirection: "column", gap: 15, paddingHorizontal: 15 }}>
         <Text style={{ fontSize: 24, fontFamily: "arame", width: "100%" }}>

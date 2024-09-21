@@ -10,6 +10,7 @@ import {
 import { useGroupsStore } from "../../store/groupsStore";
 import { useNavigation } from "@react-navigation/native";
 import PaymentItem from "../PaymentItem";
+import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
 
 export default function GroupInfo({ route }: any) {
   const { groupId } = route.params;
@@ -51,9 +52,10 @@ export default function GroupInfo({ route }: any) {
           />
           <Text style={{ fontSize: 16, fontFamily: "Arame" }}>BACK</Text>
         </Pressable>
-        <Image
-          source={require("../../assets/logo-blue.png")}
-          style={{ width: 117, height: 31, marginRight: "32%" }}
+        <LogoBlueSVG
+          width={127}
+          height={47}
+          style={{ marginRight: "32%", width: 117, height: 31 }}
         />
       </View>
       <View

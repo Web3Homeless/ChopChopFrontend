@@ -11,11 +11,16 @@ import GroupsItem from "../GroupsItem";
 import NavigationBar from "../NavigationBar";
 import { RootStackParamList } from "../../types/root-stack";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { billToDebts, calcOweIsOwed, useGroupsStore } from "../../store/groupsStore";
+import {
+  billToDebts,
+  calcOweIsOwed,
+  useGroupsStore,
+} from "../../store/groupsStore";
+import LogoSmallSVG from "../../assets/logo-small-svg.svg";
 
 export default function Groups({ navigation }: any) {
   const groupsStore = useGroupsStore();
-  const userAddress = '0xuser';
+  const userAddress = "0xuser";
 
   const groups = [
     {
@@ -85,11 +90,10 @@ export default function Groups({ navigation }: any) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Image
-        source={require("../../assets/logo-little.png")}
+      <LogoSmallSVG
+        width={117}
+        height={31}
         style={{
-          width: 117,
-          height: 31,
           justifyContent: "flex-start",
           alignItems: "flex-start",
           marginVertical: 35,
@@ -129,7 +133,7 @@ export default function Groups({ navigation }: any) {
           showsVerticalScrollIndicator={false}
         >
           {groupsStore.groups.map((item, index) => {
-            const debts = item.bills.flatMap(x => billToDebts(x));
+            const debts = item.bills.flatMap((x) => billToDebts(x));
             const oweOwed = calcOweIsOwed(debts, userAddress);
             return (
               <GroupsItem

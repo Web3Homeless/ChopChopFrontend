@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Image, SafeAreaView, Text, View } from "react-native";
+import LogoSVG from "../../assets/logo-svg.svg";
 
 export default function Home({ navigation }: any) {
   return (
@@ -16,13 +17,7 @@ export default function Home({ navigation }: any) {
           alignItems: "center",
         }}
       >
-        <Image
-          source={require("../../assets/logo.png")}
-          style={{
-            width: 200,
-            height: 100,
-          }}
-        />
+        <LogoSVG width={200} height={100} />
         <Text
           style={{
             fontSize: 20,

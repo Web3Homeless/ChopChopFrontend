@@ -10,16 +10,17 @@ import {
 import ChainsChooseItem from "../ChainsChooseItem";
 import * as Font from "expo-font";
 import { useSelectionsStore } from "../../store/userSelectionsStore";
+import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
 
 export default function ChainsChoose({ navigation }: { navigation: any }) {
   const selectionsStore = useSelectionsStore();
 
   useEffect(() => {
     if (selectionsStore.selectedSourceChains) {
-      navigation.navigate("TokensChoose", { name: "TokensChoose" })
+      navigation.navigate("TokensChoose", { name: "TokensChoose" });
     }
   }, []);
-  
+
   interface Chain {
     id: string;
     image: any;
@@ -82,10 +83,7 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
             width: "80%",
           }}
         >
-          <Image
-            source={require("../../assets/logo-blue.png")}
-            style={{ width: 170, height: 90 }}
-          />
+          <LogoBlueSVG width={170} height={90} />
           <Text
             style={{
               fontSize: 24,
