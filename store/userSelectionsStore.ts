@@ -20,6 +20,8 @@ export interface UserSelectionsStore {
   setSelectedSourceChains: (chains: string[]) => void;
   selectedTokens: string[];
   setSelectedTokens: (chains: string[]) => void;
+  selectedAvatarId: number;
+  setSelectedAvatar: (avatarId: number) => void;
 }
 
 export const useSelectionsStore = create<
@@ -38,6 +40,12 @@ export const useSelectionsStore = create<
       setSelectedTokens(selectedTokens) {
         set({
           selectedTokens,
+        });
+      },
+      selectedAvatarId: 1,
+      setSelectedAvatar(selectedAvatarId) {
+        set({
+          selectedAvatarId,
         });
       },
     }),

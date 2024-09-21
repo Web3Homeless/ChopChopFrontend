@@ -9,6 +9,8 @@ import {
   StyleSheet,
   Button,
   TextInput,
+  Linking,
+  PixelRatio,
 } from "react-native";
 import {
   AppKitButton,
@@ -38,29 +40,24 @@ import { abi } from "../../utils/abi/ens";
 import NavigationBar from "../NavigationBar";
 import { WebView } from "react-native-webview";
 import EnsWebview from "../EnsWebview";
-
-// const wallet = createWalletClient({
-//   chain: addEnsContracts(sepolia),
-//   transport: http(),
-// });
+import { useGroupsStore } from "../../store/groupsStore";
+import { useSelectionsStore } from "../../store/userSelectionsStore";
+import FastImage from "react-native-fast-image";
+import { AVATARS } from "../../utils/avatars";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function AccountProfile({ navigation }: any) {
   const { address, isConnecting, isDisconnected, isConnected } = useAccount();
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const selectionStore = useSelectionsStore();
 
-  const [text, onChangeText] = React.useState("myname.eth");
-
-  const { data: hash, writeContract } = useWriteContract();
+  const [selectedId, setSelected] = useState<number>(
+    selectionStore.selectedAvatarId,
+  );
 
   const { data: name } = useEnsName({
     address: address,
     chainId: mainnet.id,
   });
-
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash,
-    });
 
   // ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -70,42 +67,23 @@ export default function AccountProfile({ navigation }: any) {
 
   // callbacks
   const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
+    Linking.openURL("https://app.ens.domains/");
   }, []);
 
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index);
   }, []);
 
-  function onChangeUsername() {
-    //alert(address);
-    alert("1");
-    try {
-      //   const hash = await setPrimaryName(wallet, {
-      //     name: text,
-      //     address: address,
-      //     account: address!,
-      //   });
-
-      writeContract({
-        address: "0xA0a1AbcDAe1a2a4A2EF8e9113Ff0e02DD81DC0C6",
-        abi,
-        functionName: "setName",
-        args: ["someaasdasdasd"],
-      });
-    } catch (e) {
-      console.log(e);
-      alert("Error: " + e);
-    }
-  }
-
   function onImagePress() {
-    alert("1");
+    bottomSheetModalRef.current?.present();
   }
 
-  function onNamePress() {
-    setModalVisible(true);
+  function onAvatarSelectPress(id: number) {
+    //setSelected(id);
+    selectionStore.setSelectedAvatar(id);
   }
+
+  const sourceAvatar = AVATARS[selectionStore.selectedAvatarId - 1];
 
   return (
     <SafeAreaView
@@ -116,19 +94,26 @@ export default function AccountProfile({ navigation }: any) {
       <View
         style={{
           flex: 1,
-          justifyContent: "center",
           alignItems: "center",
+          gap: 10,
+          marginTop: 30,
         }}
       >
         <Pressable onPress={() => onImagePress()}>
           <Image
-            source={require("../../assets/nouns_avatar.jpg")}
-            style={{ width: 170, height: 170, borderRadius: 9999 }}
+            source={sourceAvatar.src}
+            style={{
+              width: 170,
+              height: 170,
+              borderRadius: 9999,
+              resizeMode: "contain",
+            }}
           ></Image>
         </Pressable>
         <Text
           style={{
             fontSize: 19,
+            paddingHorizontal: 90,
           }}
         >
           {name || address}
@@ -138,18 +123,66 @@ export default function AccountProfile({ navigation }: any) {
           onPress={handlePresentModalPress}
         ></Button>
         <AppKitButton />
-        {isConfirming && <Text>Waiting for confirmation...</Text>}
-        {isConfirmed && <Text>Transaction confirmed.</Text>}
-
         <BottomSheetModalProvider>
           <BottomSheetModal
             ref={bottomSheetModalRef}
             index={1}
             snapPoints={snapPoints}
             onChange={handleSheetChanges}
+            style={{
+              zIndex: -1000,
+            }}
           >
             <BottomSheetView style={styles.contentContainer}>
-              <EnsWebview></EnsWebview>
+              <ScrollView>
+                <View
+                  style={{
+                    flex: 1,
+                    padding: 50,
+                    paddingHorizontal: 80,
+                    marginBottom: 100,
+                    rowGap: 30,
+                    columnGap: 110,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    width: "100%",
+                    zIndex: 100,
+                    backgroundColor: "#2F28D0",
+                  }}
+                >
+                  {AVATARS.map((a) => (
+                    <View
+                      style={{
+                        flex: 1,
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 100,
+                        height: 100,
+                      }}
+                    >
+                      <Pressable onPress={() => onAvatarSelectPress(a.id)}>
+                        <Image
+                          source={a.src}
+                          style={{
+                            width: 100,
+                            height: 100,
+                            borderColor: "black",
+                            resizeMode: "contain",
+                            borderWidth:
+                              a.id == selectionStore.selectedAvatarId ? 8 : 0,
+                            shadowOffset: {
+                              width: 40,
+                              height: 40,
+                            },
+                          }}
+                        ></Image>
+                      </Pressable>
+                    </View>
+                  ))}
+                </View>
+              </ScrollView>
             </BottomSheetView>
           </BottomSheetModal>
         </BottomSheetModalProvider>
@@ -163,11 +196,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: "grey",
   },
   contentContainer: {
     flex: 1,
-    alignItems: "center",
+    gap: 5,
+    backgroundColor: "#2F28D0",
+    alignItems: "stretch",
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
   input: {
     height: 40,
@@ -176,47 +212,3 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
-
-// const styles = StyleSheet.create({
-//   centeredView: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginTop: 22,
-//   },
-//   modalView: {
-//     margin: 20,
-//     backgroundColor: "white",
-//     borderRadius: 20,
-//     padding: 35,
-//     alignItems: "center",
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 2,
-//     },
-//     shadowOpacity: 0.25,
-//     shadowRadius: 4,
-//     elevation: 5,
-//   },
-//   button: {
-//     borderRadius: 20,
-//     padding: 10,
-//     elevation: 2,
-//   },
-//   buttonOpen: {
-//     backgroundColor: "#F194FF",
-//   },
-//   buttonClose: {
-//     backgroundColor: "#2196F3",
-//   },
-//   textStyle: {
-//     color: "white",
-//     fontWeight: "bold",
-//     textAlign: "center",
-//   },
-//   modalText: {
-//     marginBottom: 15,
-//     textAlign: "center",
-//   },
-// });
