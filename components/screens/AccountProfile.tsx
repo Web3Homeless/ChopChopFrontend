@@ -37,6 +37,7 @@ import { setPrimaryName } from "@ensdomains/ensjs/wallet";
 import { abi } from "../../utils/abi/ens";
 import NavigationBar from "../NavigationBar";
 import { WebView } from "react-native-webview";
+import EnsWebview from "../EnsWebview";
 
 // const wallet = createWalletClient({
 //   chain: addEnsContracts(sepolia),
@@ -65,7 +66,7 @@ export default function AccountProfile({ navigation }: any) {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   // variables
-  const snapPoints = useMemo(() => ["25%", "80%"], []);
+  const snapPoints = useMemo(() => ["30%", "80%"], []);
 
   // callbacks
   const handlePresentModalPress = useCallback(() => {
@@ -148,32 +149,12 @@ export default function AccountProfile({ navigation }: any) {
             onChange={handleSheetChanges}
           >
             <BottomSheetView style={styles.contentContainer}>
-              <WebView
-                scalesPageToFit={true}
-                bounces={false}
-                javaScriptEnabled
-                source={{
-                  html: '<iframe width="100%" height="50%" src="https://app.ens.domains" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-                }}
-                style={{ marginTop: 20 }}
-              />
-              {/* <Text>Awesome 🎉</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={onChangeText}
-                value={text}
-              ></TextInput>
-              <Button
-                title="Set new ENS name"
-                onPress={async () => await onChangeUsername()}
-              ></Button>
-              {isConfirming && <Text>Waiting for confirmation...</Text>}
-              {isConfirmed && <Text>Transaction confirmed.</Text>} */}
+              <EnsWebview></EnsWebview>
             </BottomSheetView>
           </BottomSheetModal>
         </BottomSheetModalProvider>
-        <NavigationBar></NavigationBar>
       </View>
+      <NavigationBar />
     </SafeAreaView>
   );
 }
