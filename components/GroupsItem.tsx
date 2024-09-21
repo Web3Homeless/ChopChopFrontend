@@ -37,6 +37,7 @@ export default function GroupsItem({
       onPress={() =>
         (navigation as any).navigate("GroupInfo", {
           name: "GroupInfo",
+          groupId: id,
         })
       }
     >
@@ -134,7 +135,9 @@ export default function GroupsItem({
                 borderRadius: 5,
               }}
               onPress={() => {
-                groupsStore.setGroups(groupsStore.groups.filter(x => x.id != id));
+                groupsStore.setGroups(
+                  groupsStore.groups.filter((x) => x.id != id),
+                );
               }}
             >
               <Image

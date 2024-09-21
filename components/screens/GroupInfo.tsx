@@ -1,7 +1,15 @@
 import React from "react";
 import { Image, Pressable, SafeAreaView, Text, View } from "react-native";
+import { useGroupsStore } from "../../store/groupsStore";
+import { useNavigation } from "@react-navigation/native";
 
-export default function GroupInfo() {
+export default function GroupInfo({ route }: any) {
+  const { groupId } = route.params;
+
+  const nav = useNavigation() as any;
+  const store = useGroupsStore();
+  const group = store.groups.find((g) => g.id == groupId);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View
@@ -24,14 +32,16 @@ export default function GroupInfo() {
             marginRight: "auto",
           }}
         >
-          <Image
-            source={require("../../assets/misc/arrow-left.png")}
-            style={{
-              width: 13,
-              height: 15,
-            }}
-          />
-          <Text style={{ fontSize: 16, fontFamily: "arame" }}>BACK</Text>
+          <Pressable onPress={() => nav.goBack()}>
+            <Image
+              source={require("../../assets/misc/arrow-left.png")}
+              style={{
+                width: 13,
+                height: 15,
+              }}
+            />
+            <Text style={{ fontSize: 16, fontFamily: "arame" }}>BACK</Text>
+          </Pressable>
         </View>
         <Image
           source={require("../../assets/logo-blue.png")}
@@ -54,7 +64,7 @@ export default function GroupInfo() {
             fontFamily: "Arame",
           }}
         >
-          GroupName
+          {group?.name}
         </Text>
         <View style={{ flexDirection: "column", gap: 3 }}>
           <View style={{ flexDirection: "row", gap: 5 }}>
