@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Image,
   Pressable,
   SafeAreaView,
@@ -282,6 +283,7 @@ export default function CreateNewGroup() {
                 width: "100%",
                 color: "#2F28D0",
               }}
+              value={newContact}
               onChangeText={setNewContact}
             />
           </View>
@@ -297,6 +299,7 @@ export default function CreateNewGroup() {
             onPress={() => {
               setParticipants([...participants, newContact]);
               setNewContact("");
+              Alert.alert(`Contact ${newContact} was added successfully!`);
             }}
           >
             <Text style={{ fontFamily: "arame", fontSize: 16, color: "white" }}>
