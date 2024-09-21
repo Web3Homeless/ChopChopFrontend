@@ -9,6 +9,7 @@ import { mainnet } from "viem/chains";
 import { WagmiProvider } from "wagmi";
 import { authConnector } from "@reown/appkit-auth-wagmi-react-native";
 import { dynamicClient } from "../../utils/dynamic";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 type Props = {
   children: React.ReactNode;
@@ -53,12 +54,13 @@ createAppKit({
 
 export default function ProvidersContext({ children }: Props) {
   return (
-    <WagmiProvider config={wagmiConfig}>
-      <QueryClientProvider client={queryClient}>
-        {children}
-        {/* <dynamicClient.reactNative.WebView /> */}
-        <AppKit />
-      </QueryClientProvider>
-    </WagmiProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <WagmiProvider config={wagmiConfig}>
+        <QueryClientProvider client={queryClient}>
+          {children}
+          <AppKit />
+        </QueryClientProvider>
+      </WagmiProvider>
+    </GestureHandlerRootView>
   );
 }
