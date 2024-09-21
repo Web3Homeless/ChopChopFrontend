@@ -12,6 +12,7 @@ import { useFonts } from "expo-font";
 import CreateNewGroup from "./components/screens/CreateNewGroup";
 import GroupInfo from "./components/screens/GroupInfo";
 import AddExpense from "./components/screens/AddExpense";
+import SettleUp from "./components/screens/SettleUp";
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +64,11 @@ export default function App() {
           <Stack.Screen
             name={"AddExpense"}
             component={AddExpense}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={"SettleUp"}
+            component={SettleUp}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -16,7 +16,6 @@ import { useNavigation } from "@react-navigation/native";
 import PaymentItem from "../PaymentItem";
 import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
 import NavigationBar from "../NavigationBar";
-import styles from "react-native-webview/lib/WebView.styles";
 import ParticipantItem from "../ParticipantItem";
 
 export default function GroupInfo({ route }: any) {
@@ -110,6 +109,11 @@ export default function GroupInfo({ route }: any) {
               paddingVertical: 5,
               paddingHorizontal: 14,
             }}
+            onPress={() =>
+              (nav as any).navigate("SettleUp", {
+                name: "SettleUp",
+              })
+            }
           >
             <Text style={{ fontSize: 18, fontFamily: "Arame", color: "white" }}>
               SETTLE UP
