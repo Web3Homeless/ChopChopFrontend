@@ -11,6 +11,7 @@ import { useGroupsStore } from "../../store/groupsStore";
 import { useNavigation } from "@react-navigation/native";
 import PaymentItem from "../PaymentItem";
 import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
+import NavigationBar from "../NavigationBar";
 
 export default function GroupInfo({ route }: any) {
   const { groupId } = route.params;
@@ -232,6 +233,7 @@ export default function GroupInfo({ route }: any) {
       {page === "participants" && (
         <Text>{group?.participants.map((item, index) => item)}</Text>
       )}
+      <NavigationBar groupId={groupId}></NavigationBar>
     </SafeAreaView>
   );
 }
