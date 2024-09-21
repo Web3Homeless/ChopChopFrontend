@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 import NavigationBar from "../NavigationBar";
-import styles from "react-native-webview/lib/WebView.styles";
 
 export default function CreateNewGroup() {
   return (
