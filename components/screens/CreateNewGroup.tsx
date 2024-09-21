@@ -20,6 +20,7 @@ export default function CreateNewGroup() {
   const navigation = useNavigation() as any;
   const [name, setName] = useState("");
   const [addMemberMode, setAddMemberMode] = useState<boolean>(false);
+  const [createContactMode, setCreateContactMode] = useState<boolean>(false);
 
   const members = [
     {
@@ -178,29 +179,27 @@ export default function CreateNewGroup() {
             ADD MEMBERS
           </Text>
         </Pressable>
-        {/*<Pressable*/}
-        {/*  style={{*/}
-        {/*    backgroundColor: "#D9D9D9",*/}
-        {/*    borderRadius: 5,*/}
-        {/*    justifyContent: "center",*/}
-        {/*    alignItems: "center",*/}
-        {/*    paddingVertical: 14,*/}
-        {/*    flexDirection: "row",*/}
-        {/*    gap: 10,*/}
-        {/*    width: "44%",*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  <Image*/}
-        {/*    source={require("../../assets/misc/share-link.png")}*/}
-        {/*    style={{*/}
-        {/*      width: 16,*/}
-        {/*      height: 16,*/}
-        {/*    }}*/}
-        {/*  />*/}
-        {/*  <Text style={{ fontFamily: "arame", fontSize: 16, color: "#2F28D0" }}>*/}
-        {/*    SHARE A LINK*/}
-        {/*  </Text>*/}
-        {/*</Pressable>*/}
+        <Pressable
+          style={{
+            backgroundColor: "white",
+            borderRadius: 5,
+            justifyContent: "center",
+            alignItems: "center",
+            paddingVertical: 14,
+            flexDirection: "row",
+            gap: 10,
+            width: "44%",
+            borderWidth: 1,
+            borderColor: "#2F28D0",
+          }}
+          onPress={() => {
+            setCreateContactMode(!createContactMode);
+          }}
+        >
+          <Text style={{ fontFamily: "arame", fontSize: 16, color: "#2F28D0" }}>
+            CREATE CONTACT
+          </Text>
+        </Pressable>
       </View>
       {addMemberMode && (
         <ScrollView
@@ -243,6 +242,62 @@ export default function CreateNewGroup() {
             />
           ))}
         </ScrollView>
+      )}
+      {createContactMode && (
+        <View
+          style={{
+            width: "100%",
+            backgroundColor: "#EEEEEF",
+            flexDirection: "column",
+            gap: 10,
+            marginHorizontal: 15,
+            marginTop: 30,
+            paddingVertical: 10,
+          }}
+        >
+          <Text
+            style={{
+              color: "black",
+              fontSize: 24,
+              fontFamily: "Arame",
+            }}
+          >
+            ADD NEW CONTACT
+          </Text>
+          <View
+            style={{
+              width: "92%",
+              borderWidth: 1,
+              borderColor: "#2F28D0",
+              borderRadius: 5,
+              paddingVertical: 8,
+              paddingHorizontal: 6,
+            }}
+          >
+            <TextInput
+              placeholder={"Enter Wallet Number or EMC Name"}
+              placeholderTextColor={"rgba(47,40,208,0.6)"}
+              style={{
+                width: "100%",
+                color: "#2F28D0",
+              }}
+            />
+          </View>
+          <Pressable
+            style={{
+              width: "92%",
+              backgroundColor: "#2F28D0",
+              borderRadius: 5,
+              justifyContent: "center",
+              alignItems: "center",
+              paddingVertical: 16,
+            }}
+          >
+            <Text style={{ fontFamily: "arame", fontSize: 16, color: "white" }}>
+              CREATE CONTACT
+            </Text>
+          </Pressable>
+        </View>
       )}
       <NavigationBar />
     </SafeAreaView>
