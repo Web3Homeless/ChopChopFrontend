@@ -9,8 +9,10 @@ import {
 } from "react-native";
 import GroupsItem from "../GroupsItem";
 import NavigationBar from "../NavigationBar";
+import { RootStackParamList } from "../../types/root-stack";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-export default function Groups() {
+export default function Groups({ navigation }: any) {
   const groups = [
     {
       id: "somegroup",

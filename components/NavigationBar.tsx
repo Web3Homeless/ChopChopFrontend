@@ -34,37 +34,45 @@ export default function NavigationBar() {
           navigation.navigate("Groups");
         }}
       >
-        <View
-          style={{
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 5,
-            padding: 5,
-          }}
+        <Pressable
+          onPress={() =>
+            (navigation as any).navigate("Groups", {
+              name: "Groups",
+            })
+          }
         >
-          <Image
-            source={require("../assets/navigation/group.png")}
+          <View
             style={{
-              width: 26,
-              height: 21,
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 5,
+              padding: 5,
             }}
-          />
-          <Text
-            style={{ color: "white", fontSize: 12, fontWeight: "semibold" }}
           >
-            Groups
-          </Text>
-          {route.name == "Groups" && (
-            <View
+            <Image
+              source={require("../assets/navigation/group.png")}
               style={{
-                width: "100%",
-                height: 3,
-                backgroundColor: "white",
+                width: 26,
+                height: 21,
               }}
             />
-          )}
-        </View>
+            <Text
+              style={{ color: "white", fontSize: 12, fontWeight: "semibold" }}
+            >
+              Groups
+            </Text>
+            {route.name == "Groups" && (
+              <View
+                style={{
+                  width: "100%",
+                  height: 3,
+                  backgroundColor: "white",
+                }}
+              />
+            )}
+          </View>
+        </Pressable>
         <View
           style={{
             flexDirection: "column",
@@ -126,6 +134,84 @@ export default function NavigationBar() {
           paddingTop: 15,
         }}
       >
+        <Pressable
+          onPress={() =>
+            (navigation as any).navigate("AccountProfile", {
+              name: "AccountProfile",
+            })
+          }
+        >
+          <View
+            style={{
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 5,
+              padding: 5,
+            }}
+          >
+            <Image
+              source={require("../assets/navigation/history.png")}
+              style={{
+                width: 26,
+                height: 26,
+              }}
+            />
+            <Text
+              style={{ color: "white", fontSize: 12, fontWeight: "semibold" }}
+            >
+              History
+            </Text>
+            {route.name == "History" && (
+              <View
+                style={{
+                  width: "100%",
+                  height: 3,
+                  backgroundColor: "white",
+                }}
+              />
+            )}
+          </View>
+        </Pressable>
+        <Pressable
+          onPress={() =>
+            (navigation as any).navigate("AccountProfile", {
+              name: "AccountProfile",
+            })
+          }
+        >
+          <View
+            style={{
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 5,
+              padding: 5,
+            }}
+          >
+            <Image
+              source={require("../assets/navigation/account.png")}
+              style={{
+                width: 26,
+                height: 26,
+              }}
+            />
+            <Text
+              style={{ color: "white", fontSize: 12, fontWeight: "semibold" }}
+            >
+              Account
+            </Text>
+            {route.name == "Account" && (
+              <View
+                style={{
+                  width: "100%",
+                  height: 3,
+                  backgroundColor: "white",
+                }}
+              />
+            )}
+          </View>
+        </Pressable>
         <Pressable
           style={{
             flexDirection: "column",

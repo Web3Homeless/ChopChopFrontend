@@ -8,12 +8,23 @@ import {
   Modal,
   StyleSheet,
   Button,
+  TextInput,
 } from "react-native";
-import { useAppKit, useAppKitState } from "@reown/appkit-wagmi-react-native";
+import {
+  AppKitButton,
+  useAppKit,
+  useAppKitState,
+} from "@reown/appkit-wagmi-react-native";
+
+import {
+  useEnsName,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import { useAccount } from "wagmi";
 
 import { createWalletClient, custom } from "viem";
-import { mainnet } from "viem/chains";
+import { mainnet, sepolia } from "viem/chains";
 import { addEnsContracts } from "@ensdomains/ensjs";
 import { setTextRecord } from "@ensdomains/ensjs/wallet";
 import { http } from "viem";
@@ -22,17 +33,33 @@ import BottomSheet, {
   BottomSheetModalProvider,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { setPrimaryName } from "@ensdomains/ensjs/wallet";
+import { abi } from "../../utils/abi/ens";
+import NavigationBar from "../NavigationBar";
+import { WebView } from "react-native-webview";
 
-type Props = {};
+// const wallet = createWalletClient({
+//   chain: addEnsContracts(sepolia),
+//   transport: http(),
+// });
 
-const wallet = createWalletClient({
-  chain: addEnsContracts(mainnet),
-  transport: http(),
-});
-
-export default function AccountProfile({}: Props) {
+export default function AccountProfile({ navigation }: any) {
   const { address, isConnecting, isDisconnected, isConnected } = useAccount();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+  const [text, onChangeText] = React.useState("myname.eth");
+
+  const { data: hash, writeContract } = useWriteContract();
+
+  const { data: name } = useEnsName({
+    address: address,
+    chainId: mainnet.id,
+  });
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
 
   // ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -49,8 +76,27 @@ export default function AccountProfile({}: Props) {
     console.log("handleSheetChanges", index);
   }, []);
 
-  if (isConnecting) return <Text>Connecting…</Text>;
-  if (isDisconnected) return <Text>Disconnected</Text>;
+  function onChangeUsername() {
+    //alert(address);
+    alert("1");
+    try {
+      //   const hash = await setPrimaryName(wallet, {
+      //     name: text,
+      //     address: address,
+      //     account: address!,
+      //   });
+
+      writeContract({
+        address: "0xA0a1AbcDAe1a2a4A2EF8e9113Ff0e02DD81DC0C6",
+        abi,
+        functionName: "setName",
+        args: ["someaasdasdasd"],
+      });
+    } catch (e) {
+      console.log(e);
+      alert("Error: " + e);
+    }
+  }
 
   function onImagePress() {
     alert("1");
@@ -84,12 +130,15 @@ export default function AccountProfile({}: Props) {
             fontSize: 19,
           }}
         >
-          {address}
+          {name || address}
         </Text>
         <Button
           title="Change username"
           onPress={handlePresentModalPress}
         ></Button>
+        <AppKitButton />
+        {isConfirming && <Text>Waiting for confirmation...</Text>}
+        {isConfirmed && <Text>Transaction confirmed.</Text>}
 
         <BottomSheetModalProvider>
           <BottomSheetModal
@@ -99,10 +148,31 @@ export default function AccountProfile({}: Props) {
             onChange={handleSheetChanges}
           >
             <BottomSheetView style={styles.contentContainer}>
-              <Text>Awesome 🎉</Text>
+              <WebView
+                scalesPageToFit={true}
+                bounces={false}
+                javaScriptEnabled
+                source={{
+                  html: '<iframe width="100%" height="50%" src="https://app.ens.domains" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                }}
+                style={{ marginTop: 20 }}
+              />
+              {/* <Text>Awesome 🎉</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeText}
+                value={text}
+              ></TextInput>
+              <Button
+                title="Set new ENS name"
+                onPress={async () => await onChangeUsername()}
+              ></Button>
+              {isConfirming && <Text>Waiting for confirmation...</Text>}
+              {isConfirmed && <Text>Transaction confirmed.</Text>} */}
             </BottomSheetView>
           </BottomSheetModal>
         </BottomSheetModalProvider>
+        <NavigationBar></NavigationBar>
       </View>
     </SafeAreaView>
   );
@@ -117,6 +187,12 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     alignItems: "center",
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
 });
 
