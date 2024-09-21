@@ -9,6 +9,7 @@ export interface Bill {
   spenersAddresses: string[];
   // Amount spend for each user in group. User0, User1, ..., UserN
   spentAmounts: number[];
+  name: string;
 }
 
 export interface Group {

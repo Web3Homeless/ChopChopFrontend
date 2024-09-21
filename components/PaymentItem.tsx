@@ -1,5 +1,7 @@
 import { Text, View } from "react-native";
 import React from "react";
+import { mainnet } from "viem/chains";
+import { useEnsName } from "wagmi";
 
 export default function PaymentItem({
   date,
@@ -14,6 +16,11 @@ export default function PaymentItem({
   billAmount: number;
   userOwe: number;
 }) {
+  const { data: ensName } = useEnsName({
+    address: paidBy as any,
+    chainId: mainnet.id,
+  });
+
   return (
     <View style={{ flexDirection: "row", gap: 5 }}>
       <View
@@ -83,7 +90,7 @@ export default function PaymentItem({
               color: "black",
             }}
           >
-            {paidBy}
+            {ensName || paidBy}
           </Text>
         </View>
         <View

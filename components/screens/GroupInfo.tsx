@@ -16,39 +16,8 @@ import { useNavigation } from "@react-navigation/native";
 import PaymentItem from "../PaymentItem";
 import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
 import NavigationBar from "../NavigationBar";
-import avatar1 from "../../assets/avatars/avatar-1.png";
-import avatar2 from "../../assets/avatars/avatar-2.png";
-import avatar3 from "../../assets/avatars/avatar-3.png";
-import avatar4 from "../../assets/avatars/avatar-4.png";
-import avatar5 from "../../assets/avatars/avatar-5.png";
-import avatar6 from "../../assets/avatars/avatar-6.png";
-import avatar7 from "../../assets/avatars/avatar-7.png";
-import avatar8 from "../../assets/avatars/avatar-8.png";
-import avatar9 from "../../assets/avatars/avatar-9.png";
-import avatar10 from "../../assets/avatars/avatar-10.png";
-import avatar11 from "../../assets/avatars/avatar-11.png";
-import avatar12 from "../../assets/avatars/avatar-12.png";
-import avatar13 from "../../assets/avatars/avatar-13.png";
-import avatar14 from "../../assets/avatars/avatar-14.png";
-import avatar15 from "../../assets/avatars/avatar-15.png";
-
-const avatars = [
-  avatar1,
-  avatar2,
-  avatar3,
-  avatar4,
-  avatar5,
-  avatar6,
-  avatar7,
-  avatar8,
-  avatar9,
-  avatar10,
-  avatar11,
-  avatar12,
-  avatar13,
-  avatar14,
-  avatar15,
-];
+import styles from "react-native-webview/lib/WebView.styles";
+import ParticipantItem from "../ParticipantItem";
 
 export default function GroupInfo({ route }: any) {
   const { groupId } = route.params;
@@ -236,34 +205,15 @@ export default function GroupInfo({ route }: any) {
               rowGap: 10,
             }}
           >
-            <PaymentItem
-              date={{ number: 24, month: "SEP" }}
-              place={"Millenium Hotel Bar"}
-              paidBy={"Alexander Sav"}
-              billAmount={134}
-              userOwe={22}
-            />
-            <PaymentItem
-              date={{ number: 24, month: "SEP" }}
-              place={"Millenium Hotel Bar"}
-              paidBy={"Alexander Sav"}
-              billAmount={134}
-              userOwe={22}
-            />
-            <PaymentItem
-              date={{ number: 24, month: "SEP" }}
-              place={"Millenium Hotel Bar"}
-              paidBy={"Alexander Sav"}
-              billAmount={134}
-              userOwe={22}
-            />
-            <PaymentItem
-              date={{ number: 24, month: "SEP" }}
-              place={"Millenium Hotel Bar"}
-              paidBy={"Alexander Sav"}
-              billAmount={134}
-              userOwe={22}
-            />
+            {group?.bills.map((b) => (
+              <PaymentItem
+                date={{ number: 21, month: "SEP" }}
+                place={b.name}
+                paidBy={b.payerAddress}
+                billAmount={134}
+                userOwe={22}
+              />
+            ))}
           </ScrollView>
         </View>
       )}
@@ -282,54 +232,11 @@ export default function GroupInfo({ route }: any) {
             const oweOwed = calcOweIsOwed(debts, item);
             const avatar = index > 15 ? 1 : index;
             return (
-              <View
-                key={index}
-                style={{
-                  marginHorizontal: 15,
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  source={avatars[avatar]}
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 999,
-                  }}
-                />
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontFamily: "Roboto",
-                    color: "black",
-                    fontWeight: "medium",
-                    marginLeft: 20,
-                    marginRight: "auto",
-                  }}
-                >
-                  {item}
-                </Text>
-                <View style={{ flexDirection: "column", gap: 3 }}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontFamily: "Roboto",
-                    }}
-                  >
-                    {oweOwed.userOwe ? "You owe" : "Owes you"}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontFamily: "Roboto",
-                      textAlign: "right",
-                    }}
-                  >
-                    {oweOwed.userOwe ? oweOwed.userOwe : oweOwed.userIsOwed} $
-                  </Text>
-                </View>
-              </View>
+              <ParticipantItem
+                participantAddr={item}
+                oweOwed={oweOwed}
+                avatarId={avatar}
+              ></ParticipantItem>
             );
           })}
         </ScrollView>
