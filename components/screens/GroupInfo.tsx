@@ -17,6 +17,7 @@ import PaymentItem from "../PaymentItem";
 import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
 import NavigationBar from "../NavigationBar";
 import ParticipantItem from "../ParticipantItem";
+import { useAccount } from "wagmi";
 
 export default function GroupInfo({ route }: any) {
   const { groupId } = route.params;
@@ -25,6 +26,10 @@ export default function GroupInfo({ route }: any) {
   const store = useGroupsStore();
   const group = store.groups.find((g) => g.id == groupId);
   const [page, setPage] = useState<"payments" | "participants">("payments");
+  const account = useAccount();
+
+  const allDebts = group!.bills.flatMap((x) => billToDebts(x));
+  const oweOwed = calcOweIsOwed(allDebts, account.address as any);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -88,11 +93,16 @@ export default function GroupInfo({ route }: any) {
             <Text style={{ fontSize: 14, fontFamily: "Roboto" }}>
               You are owed:
             </Text>
-            <Text style={{ fontSize: 14, fontFamily: "Roboto" }}>500$</Text>
+            <Text style={{ fontSize: 14, fontFamily: "Roboto" }}>
+              {oweOwed.userOwe}$
+            </Text>
           </View>
           <View style={{ flexDirection: "row", gap: 5 }}>
             <Text style={{ fontSize: 14, fontFamily: "Roboto" }}>You owe:</Text>
-            <Text style={{ fontSize: 14, fontFamily: "Roboto" }}>50.25$</Text>
+            <Text style={{ fontSize: 14, fontFamily: "Roboto" }}>
+              {" "}
+              {oweOwed.userIsOwed}$
+            </Text>
           </View>
         </View>
         <View
@@ -209,15 +219,19 @@ export default function GroupInfo({ route }: any) {
               rowGap: 10,
             }}
           >
-            {group?.bills.map((b) => (
-              <PaymentItem
-                date={{ number: 21, month: "SEP" }}
-                place={b.name}
-                paidBy={b.payerAddress}
-                billAmount={134}
-                userOwe={22}
-              />
-            ))}
+            {group?.bills.map((b) => {
+              const debts = group.bills.flatMap((x) => billToDebts(x));
+              const oweOwed = calcOweIsOwed(debts, b.payerAddress);
+              return (
+                <PaymentItem
+                  date={{ number: 21, month: "SEP" }}
+                  place={b.name}
+                  paidBy={b.payerAddress}
+                  billAmount={b.sum}
+                  userOwe={oweOwed.userIsOwed}
+                />
+              );
+            })}
           </ScrollView>
         </View>
       )}

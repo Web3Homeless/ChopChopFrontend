@@ -11,12 +11,13 @@ import ChainsChooseItem from "../ChainsChooseItem";
 import * as Font from "expo-font";
 import { useSelectionsStore } from "../../store/userSelectionsStore";
 import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
+import { useChainStore } from "../../store/chainStore";
 
 export default function ChainsChoose({ navigation }: { navigation: any }) {
   const selectionsStore = useSelectionsStore();
 
   useEffect(() => {
-    if (selectionsStore.selectedSourceChains) {
+    if (selectionsStore.selectedSourceChains.length != 0) {
       navigation.navigate("TokensChoose", { name: "TokensChoose" });
     }
   }, []);
@@ -26,6 +27,8 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
     image: any;
     text: string;
   }
+
+  const chainStore = useChainStore();
 
   const chains: Chain[] = [
     {
@@ -157,8 +160,9 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
               gap: 10,
               paddingVertical: 13,
             }}
-            onPress={() =>
+            onPress={() => {
               navigation.navigate("TokensChoose", { name: "TokensChoose" })
+            }
             }
           >
             <Text
