@@ -9,43 +9,43 @@ import {
 } from "react-native";
 import ChainsChooseItem from "../ChainsChooseItem";
 
-export default function ChainsChoose({ navigation }: { navigation: any }) {
-  interface Chain {
+export default function TokensChoose({ navigation }: { navigation: any }) {
+  interface Token {
     id: string;
     image: any;
     text: string;
   }
 
-  const chains: Chain[] = [
+  const tokens: Token[] = [
     {
       id: "ethereum",
       image: require("../../assets/chains/ether.png"),
-      text: "Ethereum Main Network",
+      text: "ETH",
     },
     {
       id: "bnb",
       image: require("../../assets/chains/bnb.png"),
-      text: "BNB Smart Chain",
+      text: "BNB",
     },
     {
       id: "arbitrum",
       image: require("../../assets/chains/arbitrum.png"),
-      text: "Arbitrum One",
+      text: "Arbitrum",
     },
     {
       id: "gnosis",
       image: require("../../assets/chains/gnosis.png"),
-      text: "Gnosis Chain",
+      text: "Gnosis",
     },
     {
       id: "linea",
       image: require("../../assets/chains/linea.png"),
-      text: "Linea Main Network",
+      text: "Linea",
     },
     {
       id: "optimism",
       image: require("../../assets/chains/optimism.png"),
-      text: "Optimism Main Network",
+      text: "Optimism",
     },
   ];
 
@@ -86,7 +86,7 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
             }}
           >
             CHOOSE THE{" "}
-            <Text style={{ color: "#2F28D0", fontWeight: 700 }}> CHAINS </Text>{" "}
+            <Text style={{ color: "#2F28D0", fontWeight: 700 }}> TOKENS </Text>{" "}
             ON WITH YOU WANT TO REFUND YOUR PAYMENTS
           </Text>
         </View>
@@ -104,7 +104,7 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
           }}
           showsVerticalScrollIndicator={false}
         >
-          {chains.map((item, index) => (
+          {tokens.map((item, index) => (
             <ChainsChooseItem
               key={index}
               image={item.image}
@@ -125,11 +125,45 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
             width: "90%",
             display: "flex",
             flexDirection: "row",
-            justifyContent: "flex-end",
+            justifyContent: "center",
             alignItems: "center",
+            gap: 15,
             paddingVertical: 10,
           }}
         >
+          <Pressable
+            style={{
+              backgroundColor: "#EEEEEF",
+              borderRadius: 5,
+              justifyContent: "center",
+              alignItems: "center",
+              width: "50%",
+              display: "flex",
+              flexDirection: "row",
+              gap: 10,
+              paddingVertical: 13,
+            }}
+            onPress={() =>
+              navigation.navigate("ChainsChoose", { name: "ChainsChoose" })
+            }
+          >
+            <Image
+              source={require("../../assets/misc/arrow-left.png")}
+              style={{
+                width: 23,
+                height: 27,
+                objectFit: "contain",
+              }}
+            />
+            <Text
+              style={{
+                color: "black",
+                fontSize: 24,
+              }}
+            >
+              BACK
+            </Text>
+          </Pressable>
           <Pressable
             style={{
               backgroundColor: "#2F28D0",
@@ -142,9 +176,6 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
               gap: 10,
               paddingVertical: 13,
             }}
-            onPress={() =>
-              navigation.navigate("TokensChoose", { name: "TokensChoose" })
-            }
           >
             <Text
               style={{
