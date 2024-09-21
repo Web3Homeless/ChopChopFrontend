@@ -41,9 +41,11 @@ export default function Groups() {
             display: "flex",
             flexDirection: "column",
             paddingVertical: 10,
+            marginBottom: "20%",
           }}
           contentContainerStyle={{
             rowGap: 10,
+            paddingBottom: "18%",
           }}
           showsVerticalScrollIndicator={false}
         >
