@@ -15,6 +15,39 @@ import uuid from "react-native-uuid";
 import { useNavigation } from "@react-navigation/native";
 import ChainsChooseItem from "../ChainsChooseItem";
 import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
+import avatar1 from "../../assets/avatars/avatar-1.png";
+import avatar2 from "../../assets/avatars/avatar-2.png";
+import avatar3 from "../../assets/avatars/avatar-3.png";
+import avatar4 from "../../assets/avatars/avatar-4.png";
+import avatar5 from "../../assets/avatars/avatar-5.png";
+import avatar6 from "../../assets/avatars/avatar-6.png";
+import avatar7 from "../../assets/avatars/avatar-7.png";
+import avatar8 from "../../assets/avatars/avatar-8.png";
+import avatar9 from "../../assets/avatars/avatar-9.png";
+import avatar10 from "../../assets/avatars/avatar-10.png";
+import avatar11 from "../../assets/avatars/avatar-11.png";
+import avatar12 from "../../assets/avatars/avatar-12.png";
+import avatar13 from "../../assets/avatars/avatar-13.png";
+import avatar14 from "../../assets/avatars/avatar-14.png";
+import avatar15 from "../../assets/avatars/avatar-15.png";
+
+const avatars = [
+  avatar1,
+  avatar2,
+  avatar3,
+  avatar4,
+  avatar5,
+  avatar6,
+  avatar7,
+  avatar8,
+  avatar9,
+  avatar10,
+  avatar11,
+  avatar12,
+  avatar13,
+  avatar14,
+  avatar15,
+];
 
 export default function CreateNewGroup() {
   const groupsStore = useGroupsStore();
@@ -23,29 +56,6 @@ export default function CreateNewGroup() {
   const [mode, setMode] = useState<"member" | "contact" | undefined>(undefined);
   const [newContact, setNewContact] = useState("");
   const [participants, setParticipants] = useState<string[]>([]);
-
-  const members = [
-    {
-      id: "avatar-1",
-      image: require("../../assets/avatars/avatar-1.png"),
-      text: "member1",
-    },
-    {
-      id: "avatar-2",
-      image: require("../../assets/avatars/avatar-2.png"),
-      text: "member2",
-    },
-    {
-      id: "avatar-3",
-      image: require("../../assets/avatars/avatar-3.png"),
-      text: "member3",
-    },
-    {
-      id: "avatar-4",
-      image: require("../../assets/avatars/avatar-4.png"),
-      text: "member4",
-    },
-  ];
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -219,13 +229,17 @@ export default function CreateNewGroup() {
           }}
           showsVerticalScrollIndicator={false}
         >
-          {members.map((item, index) => (
+          {participants.map((item, index) => (
             <ChainsChooseItem
               key={index}
-              image={item.image}
-              text={item.text}
+              image={avatars[index > 15 ? 1 : index]}
+              text={item}
               isSelected={true}
-              setIsSelected={() => {}}
+              setIsSelected={() => {
+                setParticipants(
+                  participants.filter((participant) => participant != item),
+                );
+              }}
               // isSelected={selectionsStore.selectedSourceChains.includes(
               //   item.id,
               // )}
@@ -297,6 +311,11 @@ export default function CreateNewGroup() {
               paddingVertical: 16,
             }}
             onPress={() => {
+              if (newContact.length == 0) {
+                Alert.alert("Bad address, try again");
+                return;
+              }
+
               setParticipants([...participants, newContact]);
               setNewContact("");
               Alert.alert(`Contact ${newContact} was added successfully!`);

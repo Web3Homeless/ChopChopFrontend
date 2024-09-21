@@ -280,7 +280,7 @@ export default function GroupInfo({ route }: any) {
           {group?.participants.map((item, index) => {
             const debts = group.bills.flatMap((x) => billToDebts(x));
             const oweOwed = calcOweIsOwed(debts, item);
-            const avatar = index > 25 ? 1 : index;
+            const avatar = index > 15 ? 1 : index;
             return (
               <View
                 key={index}
