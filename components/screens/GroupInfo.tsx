@@ -219,11 +219,12 @@ export default function GroupInfo({ route }: any) {
               rowGap: 10,
             }}
           >
-            {group?.bills.map((b) => {
+            {group?.bills.map((b, index) => {
               const debts = group.bills.flatMap((x) => billToDebts(x));
               const oweOwed = calcOweIsOwed(debts, b.payerAddress);
               return (
                 <PaymentItem
+                  key={index}
                   date={{ number: 21, month: "SEP" }}
                   place={b.name}
                   paidBy={b.payerAddress}
@@ -251,10 +252,11 @@ export default function GroupInfo({ route }: any) {
             const avatar = index > 15 ? 1 : index;
             return (
               <ParticipantItem
+                key={index}
                 participantAddr={item}
                 oweOwed={oweOwed}
                 avatarId={avatar}
-              ></ParticipantItem>
+              />
             );
           })}
         </ScrollView>

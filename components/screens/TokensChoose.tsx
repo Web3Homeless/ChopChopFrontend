@@ -7,15 +7,11 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import ChainsChooseItem from "../ChainsChooseItem";
 import { useSelectionsStore } from "../../store/userSelectionsStore";
 import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
-import { useChainStore } from "../../store/chainStore";
 import SVGTokens from "../utils/SVGTokens";
 
-
 export default function TokensChoose({ navigation }: { navigation: any }) {
-
   interface Chain {
     id: string;
     tokens: Token[];
@@ -24,7 +20,6 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
   interface Token {
     id: string;
     text: string;
-
   }
 
   const selectionsStore = useSelectionsStore();
@@ -37,110 +32,109 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
 
   const chains: Chain[] = [
     {
-
       id: "ethereum",
       tokens: [
-          {
-            id : "usdc",
-            text: "USDC",
-          },
-          {
-            id : "weth",
-            text: "WETH",
-          }
-      ]
+        {
+          id: "usdc",
+          text: "USDC",
+        },
+        {
+          id: "weth",
+          text: "WETH",
+        },
+      ],
     },
     {
       id: "optimism",
       tokens: [
         {
-          id : "usdc",
+          id: "usdc",
           text: "USDC",
         },
         {
-          id : "op",
+          id: "op",
           text: "OP",
-        }
-    ]
+        },
+      ],
     },
     {
       id: "zksynck",
       tokens: [
         {
-          id : "usdc",
+          id: "usdc",
           text: "USDC",
         },
         {
-          id : "zksynck",
+          id: "zksynck",
           text: "zkSynck",
-        }
-    ]
+        },
+      ],
     },
     {
       id: "base",
       tokens: [
         {
-          id : "usdc",
+          id: "usdc",
           text: "USDC",
         },
         {
-          id : "weth",
+          id: "weth",
           text: "WHETH",
-        }
-    ]
+        },
+      ],
     },
     {
       id: "flow",
       tokens: [
         {
-          id : "usdc",
+          id: "usdc",
           text: "USDC",
         },
         {
-          id : "wflow",
+          id: "wflow",
           text: "WFLOW",
-        }
-    ]
+        },
+      ],
     },
     {
       id: "bnb",
       tokens: [
         {
-          id : "usdc",
+          id: "usdc",
           text: "USDC",
         },
         {
-          id : "1inch",
+          id: "1inch",
           text: "1Inch",
-        }
-    ]
+        },
+      ],
     },
     {
       id: "polygon",
       tokens: [
         {
-          id : "usdc",
+          id: "usdc",
           text: "USDC",
         },
         {
-          id : "weth",
+          id: "weth",
           text: "WHETH",
-        }
-    ]
+        },
+      ],
     },
     {
       id: "gnosis",
       tokens: [
         {
-          id : "usdc",
+          id: "usdc",
           text: "USDC",
         },
         {
-          id : "wbtc",
+          id: "wbtc",
           text: "WBTC",
-        }
-    ]
-    }
+        },
+      ],
+    },
   ];
 
   return (
@@ -193,30 +187,34 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
           }}
           showsVerticalScrollIndicator={false}
         >
-          {selectionsStore.selectedSourceChains.map((chainId, chainIndex) => (
-            chains.filter((chain) => chain.id == chainId).map((item, index) => 
-              item.tokens.map((token, tokenIndex) => (
-                <SVGTokens
-              key={index}
-              text={token.text}
-              isSelected={selectionsStore.selectedTokens.includes(token.id)}
-              tokenId={token.id}
-              setIsSelected={() =>
-                selectionsStore.selectedTokens.includes(token.id)
-                  ? selectionsStore.setSelectedTokens(
-                      selectionsStore.selectedTokens.filter(
-                        (tokenId) => tokenId != token.id,
-                      ),
-                    )
-                  : selectionsStore.setSelectedTokens([
-                      ...selectionsStore.selectedTokens,
+          {selectionsStore.selectedSourceChains.map((chainId, chainIndex) =>
+            chains
+              .filter((chain) => chain.id == chainId)
+              .map((item, index) =>
+                item.tokens.map((token, tokenIndex) => (
+                  <SVGTokens
+                    key={chainIndex}
+                    text={token.text}
+                    isSelected={selectionsStore.selectedTokens.includes(
                       token.id,
-                    ])
-              }
-            />
-              ))
-              )
-          ))}
+                    )}
+                    tokenId={token.id}
+                    setIsSelected={() =>
+                      selectionsStore.selectedTokens.includes(token.id)
+                        ? selectionsStore.setSelectedTokens(
+                            selectionsStore.selectedTokens.filter(
+                              (tokenId) => tokenId != token.id,
+                            ),
+                          )
+                        : selectionsStore.setSelectedTokens([
+                            ...selectionsStore.selectedTokens,
+                            token.id,
+                          ])
+                    }
+                  />
+                )),
+              ),
+          )}
         </ScrollView>
         <View
           style={{

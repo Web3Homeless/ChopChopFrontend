@@ -159,8 +159,9 @@ export default function AccountProfile({ navigation }: any) {
                     backgroundColor: "#2F28D0",
                   }}
                 >
-                  {AVATARS.map((a) => (
+                  {AVATARS.map((a, index) => (
                     <View
+                      key={index}
                       style={{
                         flex: 1,
                         flexDirection: "column",
