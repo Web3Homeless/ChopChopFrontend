@@ -144,7 +144,9 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
               paddingVertical: 13,
             }}
             onPress={() =>
-              navigation.navigate("ChainsChoose", { name: "ChainsChoose" })
+              navigation.navigate("ChainsChoose", {
+                name: "ChainsChoose",
+              })
             }
           >
             <Image

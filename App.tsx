@@ -8,14 +8,14 @@ import ProvidersContext from "./components/utils/ProvidersContext";
 import TokensChoose from "./components/screens/TokensChoose";
 import Groups from "./components/screens/Groups";
 import AccountProfile from "./components/screens/AccountProfile";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [loaded, error] = useFonts({
-    'Arame': require('./assets/fonts/Arame/Arame.ttf'),
-    'Roboto': require('./assets/fonts/Roboto/Roboto-Regular.ttf'),
+    Arame: require("./assets/fonts/Arame/Arame.ttf"),
+    Roboto: require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
   });
 
   return (
@@ -43,7 +43,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name={"Account"}
+            name={"AccountProfile"}
             component={AccountProfile}
             options={{ headerShown: false }}
           />

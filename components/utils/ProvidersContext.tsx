@@ -5,7 +5,7 @@ import {
 } from "@reown/appkit-wagmi-react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
-import { mainnet } from "viem/chains";
+import { mainnet, sepolia } from "viem/chains";
 import { WagmiProvider } from "wagmi";
 import { authConnector } from "@reown/appkit-auth-wagmi-react-native";
 import { dynamicClient } from "../../utils/dynamic";
@@ -33,7 +33,7 @@ const metadata = {
   },
 };
 
-const chains = [mainnet] as const; //mainnet, polygon, arbitrum
+const chains = [mainnet, sepolia] as const; //mainnet, polygon, arbitrum
 
 const auth = authConnector({ projectId, metadata });
 
@@ -41,7 +41,6 @@ const wagmiConfig = defaultWagmiConfig({
   chains,
   projectId,
   metadata,
-  extraConnectors: [auth],
 });
 
 // 3. Create modal
