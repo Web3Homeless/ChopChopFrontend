@@ -7,8 +7,12 @@ import GroupSVG from "../assets/navigation/group-svg.svg";
 import HistorySVG from "../assets/navigation/history-svg.svg";
 import ButtonAddSvg from "../assets/navigation/button-add-svg.svg";
 
-export default function NavigationBar() {
-  const route = useRoute();
+type Props = {
+  groupId?: number;
+};
+
+export default function NavigationBar({ groupId }: Props) {
+  const route = useRoute() as any;
   const navigation = useNavigation();
 
   return (
@@ -103,7 +107,9 @@ export default function NavigationBar() {
         }}
         onPress={() => {
           // @ts-ignore
-          navigation.navigate("CreateNewGroup");
+          navigation.navigate("AddExpense", {
+            groupId: groupId,
+          });
         }}
       >
         <ButtonAddSvg width={81} height={81} />
