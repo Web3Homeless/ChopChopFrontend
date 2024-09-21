@@ -10,7 +10,7 @@ import Groups from "./components/screens/Groups";
 import AccountProfile from "./components/screens/AccountProfile";
 import { useFonts } from "expo-font";
 import CreateNewGroup from "./components/screens/CreateNewGroup";
-import GroupInfo from "./components/GroupInfo";
+import GroupInfo from "./components/screens/GroupInfo";
 
 const Stack = createNativeStackNavigator();
 
