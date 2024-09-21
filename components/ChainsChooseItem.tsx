@@ -1,32 +1,63 @@
 import React from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, Pressable } from "react-native";
 
 export default function ChainsChooseItem({
   image,
   text,
+  isSelected,
+  setIsSelected,
 }: {
   image: any;
   text: any;
+  isSelected: boolean;
+  setIsSelected: () => void;
 }) {
   return (
-    <View
+    <Pressable
       style={{
         width: "100%",
-        backgroundColor: "#EFEEF4",
+        backgroundColor: isSelected ? "#D3D1F6" : "#EEEEEF",
         display: "flex",
         flexDirection: "row",
-        gap: 19,
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingHorizontal: 10,
+        borderRadius: 5,
       }}
+      onPress={setIsSelected}
     >
-      <Image source={image} style={{ width: 34, height: 34 }} />
-      <Text
+      <View
         style={{
-          fontSize: 18,
-          paddingVertical: 20,
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 19,
         }}
       >
-        {text}
-      </Text>
-    </View>
+        <Image
+          source={image}
+          style={{ width: 34, height: 34, objectFit: "contain" }}
+        />
+        <Text
+          style={{
+            fontSize: 18,
+            paddingVertical: 20,
+          }}
+        >
+          {text}
+        </Text>
+      </View>
+      {isSelected && (
+        <Image
+          source={require("../assets/misc/check-mark.png")}
+          style={{
+            width: 28,
+            height: 18,
+            objectFit: "contain",
+            marginRight: 22,
+          }}
+        />
+      )}
+    </Pressable>
   );
 }
