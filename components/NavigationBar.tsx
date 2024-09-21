@@ -21,17 +21,13 @@ export default function NavigationBar() {
         paddingBottom: "5%",
       }}
     >
-      <Pressable
+      <View
         style={{
           flexDirection: "row",
           gap: 30,
           marginRight: "auto",
           paddingLeft: 15,
           paddingTop: 15,
-        }}
-        onPress={() => {
-          // @ts-ignore
-          navigation.navigate("Groups");
         }}
       >
         <Pressable
@@ -73,7 +69,7 @@ export default function NavigationBar() {
             )}
           </View>
         </Pressable>
-        <View
+        <Pressable
           style={{
             flexDirection: "column",
             justifyContent: "center",
@@ -103,8 +99,8 @@ export default function NavigationBar() {
               }}
             />
           )}
-        </View>
-      </Pressable>
+        </Pressable>
+      </View>
       <Pressable
         style={{
           zIndex: 2,
@@ -134,84 +130,6 @@ export default function NavigationBar() {
           paddingTop: 15,
         }}
       >
-        <Pressable
-          onPress={() =>
-            (navigation as any).navigate("AccountProfile", {
-              name: "AccountProfile",
-            })
-          }
-        >
-          <View
-            style={{
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 5,
-              padding: 5,
-            }}
-          >
-            <Image
-              source={require("../assets/navigation/history.png")}
-              style={{
-                width: 26,
-                height: 26,
-              }}
-            />
-            <Text
-              style={{ color: "white", fontSize: 12, fontWeight: "semibold" }}
-            >
-              History
-            </Text>
-            {route.name == "History" && (
-              <View
-                style={{
-                  width: "100%",
-                  height: 3,
-                  backgroundColor: "white",
-                }}
-              />
-            )}
-          </View>
-        </Pressable>
-        <Pressable
-          onPress={() =>
-            (navigation as any).navigate("AccountProfile", {
-              name: "AccountProfile",
-            })
-          }
-        >
-          <View
-            style={{
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 5,
-              padding: 5,
-            }}
-          >
-            <Image
-              source={require("../assets/navigation/account.png")}
-              style={{
-                width: 26,
-                height: 26,
-              }}
-            />
-            <Text
-              style={{ color: "white", fontSize: 12, fontWeight: "semibold" }}
-            >
-              Account
-            </Text>
-            {route.name == "Account" && (
-              <View
-                style={{
-                  width: "100%",
-                  height: 3,
-                  backgroundColor: "white",
-                }}
-              />
-            )}
-          </View>
-        </Pressable>
         <Pressable
           style={{
             flexDirection: "column",
@@ -257,7 +175,7 @@ export default function NavigationBar() {
           }}
           onPress={() => {
             // @ts-ignore
-            navigation.navigate("Account");
+            navigation.navigate("AccountProfile");
           }}
         >
           <Image
@@ -272,7 +190,7 @@ export default function NavigationBar() {
           >
             Account
           </Text>
-          {route.name == "Account" && (
+          {route.name == "AccountProfile" && (
             <View
               style={{
                 width: "100%",
