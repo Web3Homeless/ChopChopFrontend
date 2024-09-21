@@ -1,9 +1,82 @@
 import React from "react";
-import { SafeAreaView, View, Image, Text, ScrollView } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Image,
+  Text,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import GroupsItem from "../GroupsItem";
 import NavigationBar from "../NavigationBar";
 
 export default function Groups() {
+  const groups = [
+    {
+      id: "somegroup",
+      groupName: "Group Name 1",
+      owned: 500,
+      owe: 1500.22,
+      isSettled: false,
+    },
+    {
+      id: "somegroup",
+      groupName: "Group Name 1",
+      owned: 500,
+      owe: 1500.22,
+      isSettled: true,
+    },
+    {
+      id: "somegroup",
+      groupName: "Group Name 1",
+      owned: 500,
+      owe: 1500.22,
+      isSettled: false,
+    },
+    {
+      id: "somegroup",
+      groupName: "Group Name 1",
+      owned: 500,
+      owe: 1500.22,
+      isSettled: false,
+    },
+    {
+      id: "somegroup",
+      groupName: "Group Name 1",
+      owned: 500,
+      owe: 1500.22,
+      isSettled: true,
+    },
+    {
+      id: "somegroup",
+      groupName: "Group Name 1",
+      owned: 500,
+      owe: 1500.22,
+      isSettled: false,
+    },
+    {
+      id: "somegroup",
+      groupName: "Group Name 1",
+      owned: 500,
+      owe: 1500.22,
+      isSettled: false,
+    },
+    {
+      id: "somegroup",
+      groupName: "Group Name 1",
+      owned: 500,
+      owe: 1500.22,
+      isSettled: false,
+    },
+    {
+      id: "somegroup",
+      groupName: "Group Name 1",
+      owned: 500,
+      owe: 1500.22,
+      isSettled: false,
+    },
+  ];
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Image
@@ -49,48 +122,48 @@ export default function Groups() {
           }}
           showsVerticalScrollIndicator={false}
         >
-          <GroupsItem
-            id={"somegroup"}
-            groupName={"Group Name 1"}
-            owned={500}
-            owe={1500.22}
-            isSettled={false}
-          />
-          <GroupsItem
-            id={"somegroup"}
-            groupName={"Group Name 1"}
-            owned={500}
-            owe={1500.22}
-            isSettled={true}
-          />
-          <GroupsItem
-            id={"somegroup"}
-            groupName={"Group Name 1"}
-            owned={500}
-            owe={1500.22}
-            isSettled={false}
-          />
-          <GroupsItem
-            id={"somegroup"}
-            groupName={"Group Name 1"}
-            owned={500}
-            owe={1500.22}
-            isSettled={false}
-          />
-          <GroupsItem
-            id={"somegroup"}
-            groupName={"Group Name 1"}
-            owned={500}
-            owe={1500.22}
-            isSettled={false}
-          />
-          <GroupsItem
-            id={"somegroup"}
-            groupName={"Group Name 1"}
-            owned={500}
-            owe={1500.22}
-            isSettled={false}
-          />
+          {groups.map((item, index) => (
+            <GroupsItem
+              key={index}
+              id={item.id}
+              groupName={item.groupName}
+              owned={item.owned}
+              owe={item.owe}
+              isSettled={item.isSettled}
+            />
+          ))}
+          <Pressable
+            key={"add-new-group"}
+            style={{
+              borderRadius: 5,
+              width: "100%",
+              backgroundColor: "#EEEEEF",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingVertical: 10,
+              display: "flex",
+              flexDirection: "column",
+              gap: 5,
+            }}
+          >
+            <Image
+              source={require("../../assets/misc/plus.png")}
+              style={{
+                width: 33,
+                height: 33,
+              }}
+            />
+            <Text
+              style={{
+                color: "#2F28D0",
+                fontSize: 14,
+                fontFamily: "roboto",
+                fontWeight: "semibold",
+              }}
+            >
+              Create new group
+            </Text>
+          </Pressable>
         </ScrollView>
       </View>
       <NavigationBar />
