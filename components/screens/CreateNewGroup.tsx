@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
   Pressable,
@@ -14,8 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function CreateNewGroup() {
   const groupsStore = useGroupsStore();
-  const navigation = useNavigation();
-
+  const navigation = useNavigation() as any;
+  const [name, setName] = useState('');
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View
@@ -79,6 +79,7 @@ export default function CreateNewGroup() {
                 paddingVertical: 5,
               }}
               placeholderTextColor={"rgba(47,40,208,0.6)"}
+              onChangeText={(text) => setName(text)}
             />
             <View
               style={{ width: "100%", height: 1, backgroundColor: "#2F28D0" }}
@@ -102,12 +103,12 @@ export default function CreateNewGroup() {
                 ...groupsStore.groups,
                 {
                   id: uuid.v4(),
-                  name: "name",
+                  name,
                   participants: [],
                   bills: [],
                 } as Group,
               ]);
-              navigation.navigate("Groups", { name: "Groups" });
+              navigation.navigate("Groups");
             }}
           >
             CREATE GROUP
