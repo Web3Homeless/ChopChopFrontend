@@ -16,7 +16,39 @@ import { useNavigation } from "@react-navigation/native";
 import PaymentItem from "../PaymentItem";
 import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
 import NavigationBar from "../NavigationBar";
-import styles from "react-native-webview/lib/WebView.styles";
+import avatar1 from "../../assets/avatars/avatar-1.png";
+import avatar2 from "../../assets/avatars/avatar-2.png";
+import avatar3 from "../../assets/avatars/avatar-3.png";
+import avatar4 from "../../assets/avatars/avatar-4.png";
+import avatar5 from "../../assets/avatars/avatar-5.png";
+import avatar6 from "../../assets/avatars/avatar-6.png";
+import avatar7 from "../../assets/avatars/avatar-7.png";
+import avatar8 from "../../assets/avatars/avatar-8.png";
+import avatar9 from "../../assets/avatars/avatar-9.png";
+import avatar10 from "../../assets/avatars/avatar-10.png";
+import avatar11 from "../../assets/avatars/avatar-11.png";
+import avatar12 from "../../assets/avatars/avatar-12.png";
+import avatar13 from "../../assets/avatars/avatar-13.png";
+import avatar14 from "../../assets/avatars/avatar-14.png";
+import avatar15 from "../../assets/avatars/avatar-15.png";
+
+const avatars = [
+  avatar1,
+  avatar2,
+  avatar3,
+  avatar4,
+  avatar5,
+  avatar6,
+  avatar7,
+  avatar8,
+  avatar9,
+  avatar10,
+  avatar11,
+  avatar12,
+  avatar13,
+  avatar14,
+  avatar15,
+];
 
 export default function GroupInfo({ route }: any) {
   const { groupId } = route.params;
@@ -248,7 +280,7 @@ export default function GroupInfo({ route }: any) {
           {group?.participants.map((item, index) => {
             const debts = group.bills.flatMap((x) => billToDebts(x));
             const oweOwed = calcOweIsOwed(debts, item);
-            const avatar = 2;
+            const avatar = index > 25 ? 1 : index;
             return (
               <View
                 key={index}
@@ -259,7 +291,7 @@ export default function GroupInfo({ route }: any) {
                 }}
               >
                 <Image
-                  source={require(`../../assets/avatars/avatar-${avatar}.png`)}
+                  source={avatars[avatar]}
                   style={{
                     width: 44,
                     height: 44,
