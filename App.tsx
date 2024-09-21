@@ -8,6 +8,7 @@ import ProvidersContext from "./components/utils/ProvidersContext";
 import TokensChoose from "./components/screens/TokensChoose";
 import Groups from "./components/screens/Groups";
 import GroupsTest from "./components/screens/GroupsTest";
+import AccountProfile from "./components/screens/AccountProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,12 +36,12 @@ export default function App() {
             name={"Groups"}
             component={Groups}
             options={{ headerShown: false }}
+          /> */}
+          <Stack.Screen
+            name={"Groups"}
+            component={AccountProfile}
+            options={{ headerShown: false }}
           />
-          {/*<Stack.Screen*/}
-          {/*  name={"Groups"}*/}
-          {/*  component={GroupsTest}*/}
-          {/*  options={{ headerShown: false }}*/}
-          {/*/>*/}
         </Stack.Navigator>
       </NavigationContainer>
     </ProvidersContext>
