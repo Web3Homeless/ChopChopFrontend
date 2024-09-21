@@ -78,6 +78,13 @@ export default function AccountProfile({ navigation }: any) {
     bottomSheetModalRef.current?.present();
   }
 
+  function invalidateChains() {
+    alert("invalidated chains");
+    selectionStore.setSelectedSourceChains([]);
+    selectionStore.setSelectedTokens([]);
+    navigation.navigate("Home");
+  }
+
   function onAvatarSelectPress(id: number) {
     //setSelected(id);
     selectionStore.setSelectedAvatar(id);
@@ -123,6 +130,7 @@ export default function AccountProfile({ navigation }: any) {
           onPress={handlePresentModalPress}
         ></Button>
         <AppKitButton />
+        <Button title="Invalidate chains" onPress={invalidateChains}></Button>
         <BottomSheetModalProvider>
           <BottomSheetModal
             ref={bottomSheetModalRef}
@@ -151,8 +159,9 @@ export default function AccountProfile({ navigation }: any) {
                     backgroundColor: "#2F28D0",
                   }}
                 >
-                  {AVATARS.map((a) => (
+                  {AVATARS.map((a, index) => (
                     <View
+                      key={index}
                       style={{
                         flex: 1,
                         flexDirection: "column",

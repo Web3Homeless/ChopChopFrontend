@@ -159,6 +159,9 @@ export default function GroupsItem({
                 borderRadius: 5,
                 opacity: isSettled ? 0 : 1,
               }}
+              onPress={(navigation as any).navigate("SettleUp", {
+                name: "SettleUp",
+              })}
             >
               <Text
                 style={{

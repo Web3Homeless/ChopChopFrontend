@@ -9,8 +9,6 @@ import {
 } from "react-native";
 import GroupsItem from "../GroupsItem";
 import NavigationBar from "../NavigationBar";
-import { RootStackParamList } from "../../types/root-stack";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
   billToDebts,
   calcOweIsOwed,
@@ -21,72 +19,6 @@ import LogoSmallSVG from "../../assets/logo-small-svg.svg";
 export default function Groups({ navigation }: any) {
   const groupsStore = useGroupsStore();
   const userAddress = "0xuser";
-
-  const groups = [
-    {
-      id: "somegroup",
-      groupName: "Group Name 1",
-      owned: 500,
-      owe: 1500.22,
-      isSettled: false,
-    },
-    {
-      id: "somegroup",
-      groupName: "Group Name 1",
-      owned: 500,
-      owe: 1500.22,
-      isSettled: true,
-    },
-    {
-      id: "somegroup",
-      groupName: "Group Name 1",
-      owned: 500,
-      owe: 1500.22,
-      isSettled: false,
-    },
-    {
-      id: "somegroup",
-      groupName: "Group Name 1",
-      owned: 500,
-      owe: 1500.22,
-      isSettled: false,
-    },
-    {
-      id: "somegroup",
-      groupName: "Group Name 1",
-      owned: 500,
-      owe: 1500.22,
-      isSettled: true,
-    },
-    {
-      id: "somegroup",
-      groupName: "Group Name 1",
-      owned: 500,
-      owe: 1500.22,
-      isSettled: false,
-    },
-    {
-      id: "somegroup",
-      groupName: "Group Name 1",
-      owned: 500,
-      owe: 1500.22,
-      isSettled: false,
-    },
-    {
-      id: "somegroup",
-      groupName: "Group Name 1",
-      owned: 500,
-      owe: 1500.22,
-      isSettled: false,
-    },
-    {
-      id: "somegroup",
-      groupName: "Group Name 1",
-      owned: 500,
-      owe: 1500.22,
-      isSettled: false,
-    },
-  ];
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

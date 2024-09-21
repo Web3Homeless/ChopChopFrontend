@@ -34,7 +34,7 @@ export function billToDebts(bill: Bill) {
   const debts = bill.spentAmounts.map((x, i) => ({
     from: bill.spenersAddresses[i],
     to: bill.payerAddress,
-    debt: bill.sum,
+    debt: bill.spentAmounts[i],
   })) as Debt[];
 
   return debts;
