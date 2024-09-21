@@ -1,7 +1,15 @@
-import React from "react";
-import { Image, Pressable, SafeAreaView, Text, View } from "react-native";
+import React, { useState } from "react";
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { useGroupsStore } from "../../store/groupsStore";
 import { useNavigation } from "@react-navigation/native";
+import PaymentItem from "../PaymentItem";
 
 export default function GroupInfo({ route }: any) {
   const { groupId } = route.params;
@@ -9,6 +17,7 @@ export default function GroupInfo({ route }: any) {
   const nav = useNavigation() as any;
   const store = useGroupsStore();
   const group = store.groups.find((g) => g.id == groupId);
+  const [page, setPage] = useState<"payments" | "participants">("payments");
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -18,34 +27,33 @@ export default function GroupInfo({ route }: any) {
           alignItems: "center",
           flexDirection: "row",
           marginHorizontal: 15,
+          marginTop: 30,
         }}
       >
-        <View
+        <Pressable
+          onPress={() => nav.goBack()}
           style={{
             flexDirection: "row",
             gap: 10,
-            justifyContent: "center",
-            alignItems: "center",
+            paddingVertical: 11,
+            paddingHorizontal: 19,
             backgroundColor: "#EEEEEF",
             borderRadius: 5,
-            paddingHorizontal: 11,
             marginRight: "auto",
           }}
         >
-          <Pressable onPress={() => nav.goBack()}>
-            <Image
-              source={require("../../assets/misc/arrow-left.png")}
-              style={{
-                width: 13,
-                height: 15,
-              }}
-            />
-            <Text style={{ fontSize: 16, fontFamily: "arame" }}>BACK</Text>
-          </Pressable>
-        </View>
+          <Image
+            source={require("../../assets/misc/arrow-left.png")}
+            style={{
+              width: 20,
+              height: 18,
+            }}
+          />
+          <Text style={{ fontSize: 16, fontFamily: "Arame" }}>BACK</Text>
+        </Pressable>
         <Image
           source={require("../../assets/logo-blue.png")}
-          style={{ width: 117, height: 31, marginHorizontal: "auto" }}
+          style={{ width: 117, height: 31, marginRight: "32%" }}
         />
       </View>
       <View
@@ -56,6 +64,7 @@ export default function GroupInfo({ route }: any) {
           flexDirection: "column",
           gap: 10,
           padding: 10,
+          marginHorizontal: 15,
         }}
       >
         <Text
@@ -116,6 +125,106 @@ export default function GroupInfo({ route }: any) {
           </Pressable>
         </View>
       </View>
+      <View
+        style={{
+          marginTop: 10,
+          flexDirection: "row",
+          marginHorizontal: 15,
+          gap: 15,
+        }}
+      >
+        <Pressable
+          style={{
+            backgroundColor: page === "payments" ? "black" : "#EEEEEF",
+            borderRadius: 5,
+            paddingVertical: 8,
+            paddingHorizontal: 43,
+            opacity: page === "payments" ? 1 : 0.6,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: "Arame",
+              color: page === "payments" ? "white" : "#2F28D0",
+              fontWeight: "bold",
+            }}
+          >
+            PAYMENTS
+          </Text>
+        </Pressable>
+        <Pressable
+          style={{
+            backgroundColor: page === "participants" ? "black" : "#EEEEEF",
+            borderRadius: 5,
+            paddingVertical: 8,
+            paddingHorizontal: 22,
+            opacity: page === "participants" ? 1 : 0.6,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: "Arame",
+              color: page === "participants" ? "white" : "#2F28D0",
+              fontWeight: "bold",
+            }}
+          >
+            PARTICIPANTS
+          </Text>
+        </Pressable>
+      </View>
+      {page === "payments" && (
+        <View style={{ marginTop: 10, marginHorizontal: 15 }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: "Roboto",
+              fontWeight: "medium",
+              marginVertical: 10,
+            }}
+          >
+            September 2024
+          </Text>
+          <ScrollView
+            style={{
+              height: "100%",
+            }}
+            contentContainerStyle={{
+              rowGap: 10,
+            }}
+          >
+            <PaymentItem
+              date={{ number: 24, month: "SEP" }}
+              place={"Millenium Hotel Bar"}
+              paidBy={"Alexander Sav"}
+              billAmount={134}
+              userOwe={22}
+            />
+            <PaymentItem
+              date={{ number: 24, month: "SEP" }}
+              place={"Millenium Hotel Bar"}
+              paidBy={"Alexander Sav"}
+              billAmount={134}
+              userOwe={22}
+            />
+            <PaymentItem
+              date={{ number: 24, month: "SEP" }}
+              place={"Millenium Hotel Bar"}
+              paidBy={"Alexander Sav"}
+              billAmount={134}
+              userOwe={22}
+            />
+            <PaymentItem
+              date={{ number: 24, month: "SEP" }}
+              place={"Millenium Hotel Bar"}
+              paidBy={"Alexander Sav"}
+              billAmount={134}
+              userOwe={22}
+            />
+          </ScrollView>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
