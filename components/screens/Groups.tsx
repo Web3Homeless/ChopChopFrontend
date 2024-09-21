@@ -1,8 +1,9 @@
 import React from "react";
 import { SafeAreaView, View, Image, Text, ScrollView } from "react-native";
 import GroupsItem from "../GroupsItem";
+import NavigationBar from "../NavigationBar";
 
-export default function Groups() {
+export default function Groups({ navigation }: { navigation: any }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Image
@@ -84,6 +85,7 @@ export default function Groups() {
           />
         </ScrollView>
       </View>
+      <NavigationBar />
     </SafeAreaView>
   );
 }

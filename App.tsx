@@ -16,7 +16,7 @@ export default function App() {
     <ProvidersContext>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             name={"Home"}
             component={Home}
             options={{ headerShown: false }}
@@ -35,12 +35,12 @@ export default function App() {
             name={"Groups"}
             component={Groups}
             options={{ headerShown: false }}
-          /> */}
-          <Stack.Screen
-            name={"Groups"}
-            component={GroupsTest}
-            options={{ headerShown: false }}
           />
+          {/*<Stack.Screen*/}
+          {/*  name={"Groups"}*/}
+          {/*  component={GroupsTest}*/}
+          {/*  options={{ headerShown: false }}*/}
+          {/*/>*/}
         </Stack.Navigator>
       </NavigationContainer>
     </ProvidersContext>
