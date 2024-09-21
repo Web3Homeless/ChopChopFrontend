@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Image, Text, Pressable } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import AccountSVG from "../assets/navigation/account-svg.svg";
 
 export default function NavigationBar() {
   const route = useRoute();
@@ -178,13 +179,7 @@ export default function NavigationBar() {
             navigation.navigate("AccountProfile");
           }}
         >
-          <Image
-            source={require("../assets/navigation/account.png")}
-            style={{
-              width: 26,
-              height: 26,
-            }}
-          />
+          <AccountSVG width={26} height={26} />
           <Text
             style={{ color: "white", fontSize: 12, fontWeight: "semibold" }}
           >
