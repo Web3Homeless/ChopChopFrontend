@@ -143,6 +143,7 @@ export default function GroupInfo({ route }: any) {
             paddingHorizontal: 43,
             opacity: page === "payments" ? 1 : 0.6,
           }}
+          onPress={() => setPage("payments")}
         >
           <Text
             style={{
@@ -163,6 +164,7 @@ export default function GroupInfo({ route }: any) {
             paddingHorizontal: 22,
             opacity: page === "participants" ? 1 : 0.6,
           }}
+          onPress={() => setPage("participants")}
         >
           <Text
             style={{
@@ -226,6 +228,9 @@ export default function GroupInfo({ route }: any) {
             />
           </ScrollView>
         </View>
+      )}
+      {page === "participants" && (
+        <Text>{group?.participants.map((item, index) => item)}</Text>
       )}
     </SafeAreaView>
   );

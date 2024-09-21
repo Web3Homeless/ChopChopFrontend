@@ -19,8 +19,9 @@ export default function CreateNewGroup() {
   const groupsStore = useGroupsStore();
   const navigation = useNavigation() as any;
   const [name, setName] = useState("");
-  const [addMemberMode, setAddMemberMode] = useState<boolean>(false);
-  const [createContactMode, setCreateContactMode] = useState<boolean>(false);
+  const [mode, setMode] = useState<"member" | "contact" | undefined>(undefined);
+  const [newContact, setNewContact] = useState("");
+  const [participants, setParticipants] = useState<string[]>([]);
 
   const members = [
     {
@@ -127,7 +128,7 @@ export default function CreateNewGroup() {
                 {
                   id: uuid.v4(),
                   name,
-                  participants: [],
+                  participants: participants,
                   bills: [],
                 } as Group,
               ]);
@@ -159,7 +160,7 @@ export default function CreateNewGroup() {
             width: "44%",
           }}
           onPress={() => {
-            setAddMemberMode(!addMemberMode);
+            setMode("member");
           }}
         >
           <Image
@@ -193,7 +194,7 @@ export default function CreateNewGroup() {
             borderColor: "#2F28D0",
           }}
           onPress={() => {
-            setCreateContactMode(!createContactMode);
+            setMode("contact");
           }}
         >
           <Text style={{ fontFamily: "arame", fontSize: 16, color: "#2F28D0" }}>
@@ -201,7 +202,7 @@ export default function CreateNewGroup() {
           </Text>
         </Pressable>
       </View>
-      {addMemberMode && (
+      {mode === "member" && (
         <ScrollView
           style={{
             width: "92%",
@@ -243,7 +244,7 @@ export default function CreateNewGroup() {
           ))}
         </ScrollView>
       )}
-      {createContactMode && (
+      {mode === "contact" && (
         <View
           style={{
             width: "100%",
@@ -281,6 +282,7 @@ export default function CreateNewGroup() {
                 width: "100%",
                 color: "#2F28D0",
               }}
+              onChangeText={setNewContact}
             />
           </View>
           <Pressable
@@ -291,6 +293,10 @@ export default function CreateNewGroup() {
               justifyContent: "center",
               alignItems: "center",
               paddingVertical: 16,
+            }}
+            onPress={() => {
+              setParticipants([...participants, newContact]);
+              setNewContact("");
             }}
           >
             <Text style={{ fontFamily: "arame", fontSize: 16, color: "white" }}>
