@@ -8,6 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import ChainsChooseItem from "../ChainsChooseItem";
+import * as Font from 'expo-font';
 
 export default function ChainsChoose({ navigation }: { navigation: any }) {
   interface Chain {
@@ -83,7 +84,8 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
               fontSize: 24,
               fontWeight: 500,
               textAlign: "center",
-              fontFamily:'Arame'
+              fontFamily:'Arame',
+              lineHeight: 34,
             }}
           >
             CHOOSE THE{" "}

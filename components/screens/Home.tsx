@@ -26,7 +26,7 @@ export default function Home({ navigation }: any) {
         <Text
           style={{
             fontSize: 20,
-            fontFamily: "roboto",
+            fontFamily: "Roboto",
             color: "white",
           }}
         >
