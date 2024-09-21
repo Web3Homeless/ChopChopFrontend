@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -8,6 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import ChainsChooseItem from "../ChainsChooseItem";
+import { useSelectionsStore } from "../../store/userSelectionsStore";
 
 export default function TokensChoose({ navigation }: { navigation: any }) {
   interface Token {
@@ -15,6 +16,14 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
     image: any;
     text: string;
   }
+
+  const selectionsStore = useSelectionsStore();
+
+  useEffect(() => {
+    if (selectionsStore.selectedSourceChains) {
+      navigation.navigate("Groups", { name: "Groups" })    
+    }
+  }, []);
 
   const tokens: Token[] = [
     {
@@ -48,8 +57,6 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
       text: "Optimism",
     },
   ];
-
-  const [selectedChains, setSelectedChains] = React.useState<string[]>([]);
 
   return (
     <SafeAreaView
@@ -109,13 +116,13 @@ export default function TokensChoose({ navigation }: { navigation: any }) {
               key={index}
               image={item.image}
               text={item.text}
-              isSelected={selectedChains.includes(item.id)}
+              isSelected={selectionsStore.selectedTokens.includes(item.id)}
               setIsSelected={() =>
-                selectedChains.includes(item.id)
-                  ? setSelectedChains(
-                      selectedChains.filter((chainId) => chainId != item.id),
+                selectionsStore.selectedTokens.includes(item.id)
+                  ? selectionsStore.setSelectedTokens(
+                    selectionsStore.selectedTokens.filter((chainId) => chainId != item.id),
                     )
-                  : setSelectedChains([...selectedChains, item.id])
+                  : selectionsStore.setSelectedTokens([...selectionsStore.selectedTokens, item.id])
               }
             />
           ))}

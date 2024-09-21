@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -8,9 +8,18 @@ import {
   Pressable,
 } from "react-native";
 import ChainsChooseItem from "../ChainsChooseItem";
-import * as Font from 'expo-font';
+import * as Font from "expo-font";
+import { useSelectionsStore } from "../../store/userSelectionsStore";
 
 export default function ChainsChoose({ navigation }: { navigation: any }) {
+  const selectionsStore = useSelectionsStore();
+
+  useEffect(() => {
+    if (selectionsStore.selectedSourceChains) {
+      navigation.navigate("TokensChoose", { name: "TokensChoose" })
+    }
+  }, []);
+  
   interface Chain {
     id: string;
     image: any;
@@ -50,8 +59,6 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
     },
   ];
 
-  const [selectedChains, setSelectedChains] = React.useState<string[]>([]);
-
   return (
     <SafeAreaView
       style={{
@@ -84,7 +91,7 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
               fontSize: 24,
               fontWeight: 500,
               textAlign: "center",
-              fontFamily:'Arame',
+              fontFamily: "Arame",
               lineHeight: 34,
             }}
           >
@@ -112,13 +119,20 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
               key={index}
               image={item.image}
               text={item.text}
-              isSelected={selectedChains.includes(item.id)}
+              isSelected={selectionsStore.selectedSourceChains.includes(
+                item.id,
+              )}
               setIsSelected={() =>
-                selectedChains.includes(item.id)
-                  ? setSelectedChains(
-                      selectedChains.filter((chainId) => chainId != item.id),
+                selectionsStore.selectedSourceChains.includes(item.id)
+                  ? selectionsStore.setSelectedSourceChains(
+                      selectionsStore.selectedSourceChains.filter(
+                        (chainId) => chainId != item.id,
+                      ),
                     )
-                  : setSelectedChains([...selectedChains, item.id])
+                  : selectionsStore.setSelectedSourceChains([
+                      ...selectionsStore.selectedSourceChains,
+                      item.id,
+                    ])
               }
             />
           ))}
