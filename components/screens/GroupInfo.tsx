@@ -7,11 +7,16 @@ import {
   Text,
   View,
 } from "react-native";
-import { useGroupsStore } from "../../store/groupsStore";
+import {
+  billToDebts,
+  calcOweIsOwed,
+  useGroupsStore,
+} from "../../store/groupsStore";
 import { useNavigation } from "@react-navigation/native";
 import PaymentItem from "../PaymentItem";
 import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
 import NavigationBar from "../NavigationBar";
+import styles from "react-native-webview/lib/WebView.styles";
 
 export default function GroupInfo({ route }: any) {
   const { groupId } = route.params;
@@ -231,7 +236,71 @@ export default function GroupInfo({ route }: any) {
         </View>
       )}
       {page === "participants" && (
-        <Text>{group?.participants.map((item, index) => item)}</Text>
+        <ScrollView
+          style={{
+            height: "100%",
+            marginTop: 15,
+          }}
+          contentContainerStyle={{
+            rowGap: 10,
+          }}
+        >
+          {group?.participants.map((item, index) => {
+            const debts = group.bills.flatMap((x) => billToDebts(x));
+            const oweOwed = calcOweIsOwed(debts, item);
+            const avatar = 2;
+            return (
+              <View
+                key={index}
+                style={{
+                  marginHorizontal: 15,
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  source={require(`../../assets/avatars/avatar-${avatar}.png`)}
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 999,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontFamily: "Roboto",
+                    color: "black",
+                    fontWeight: "medium",
+                    marginLeft: 20,
+                    marginRight: "auto",
+                  }}
+                >
+                  {item}
+                </Text>
+                <View style={{ flexDirection: "column", gap: 3 }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontFamily: "Roboto",
+                    }}
+                  >
+                    {oweOwed.userOwe ? "You owe" : "Owes you"}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontFamily: "Roboto",
+                      textAlign: "right",
+                    }}
+                  >
+                    {oweOwed.userOwe ? oweOwed.userOwe : oweOwed.userIsOwed} $
+                  </Text>
+                </View>
+              </View>
+            );
+          })}
+        </ScrollView>
       )}
       <NavigationBar groupId={groupId}></NavigationBar>
     </SafeAreaView>
