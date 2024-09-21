@@ -83,6 +83,7 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
               fontSize: 24,
               fontWeight: 500,
               textAlign: "center",
+              fontFamily:'Arame'
             }}
           >
             CHOOSE THE{" "}

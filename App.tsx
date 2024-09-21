@@ -16,7 +16,7 @@ export default function App() {
     <ProvidersContext>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             name={"Home"}
             component={Home}
             options={{ headerShown: false }}
@@ -31,7 +31,7 @@ export default function App() {
             component={TokensChoose}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name={"Groups"}
             component={Groups}
             options={{ headerShown: false }}

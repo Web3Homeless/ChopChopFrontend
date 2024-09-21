@@ -24,7 +24,15 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-secure-store"
+      "expo-secure-store",
+      ["expo-font", {
+        "fonts": [
+          "./assets/fonts/Arame.ttf",
+          "./assets/fonts/Arame-Bold.ttf",
+          "./assets/fonts/Arame-Thin.ttf"
+
+        ]
+      }]
     ]
   }
 }
