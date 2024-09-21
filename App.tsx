@@ -7,7 +7,6 @@ import ChainsChoose from "./components/screens/ChainsChoose";
 import ProvidersContext from "./components/utils/ProvidersContext";
 import TokensChoose from "./components/screens/TokensChoose";
 import Groups from "./components/screens/Groups";
-import GroupsTest from "./components/screens/GroupsTest";
 import AccountProfile from "./components/screens/AccountProfile";
 import { useFonts } from 'expo-font';
 
@@ -38,13 +37,13 @@ export default function App() {
             component={TokensChoose}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             name={"Groups"}
             component={Groups}
             options={{ headerShown: false }}
-          /> */}
+          />
           <Stack.Screen
-            name={"Groups"}
+            name={"Account"}
             component={AccountProfile}
             options={{ headerShown: false }}
           />
