@@ -36,6 +36,7 @@ import BottomSheet, {
 import { setPrimaryName } from "@ensdomains/ensjs/wallet";
 import { abi } from "../../utils/abi/ens";
 import NavigationBar from "../NavigationBar";
+import { WebView } from "react-native-webview";
 
 // const wallet = createWalletClient({
 //   chain: addEnsContracts(sepolia),
@@ -52,7 +53,7 @@ export default function AccountProfile({ navigation }: any) {
 
   const { data: name } = useEnsName({
     address: address,
-    chainId: sepolia.id,
+    chainId: mainnet.id,
   });
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
@@ -147,7 +148,16 @@ export default function AccountProfile({ navigation }: any) {
             onChange={handleSheetChanges}
           >
             <BottomSheetView style={styles.contentContainer}>
-              <Text>Awesome 🎉</Text>
+              <WebView
+                scalesPageToFit={true}
+                bounces={false}
+                javaScriptEnabled
+                source={{
+                  html: '<iframe width="100%" height="50%" src="https://app.ens.domains" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                }}
+                style={{ marginTop: 20 }}
+              />
+              {/* <Text>Awesome 🎉</Text>
               <TextInput
                 style={styles.input}
                 onChangeText={onChangeText}
@@ -158,7 +168,7 @@ export default function AccountProfile({ navigation }: any) {
                 onPress={async () => await onChangeUsername()}
               ></Button>
               {isConfirming && <Text>Waiting for confirmation...</Text>}
-              {isConfirmed && <Text>Transaction confirmed.</Text>}
+              {isConfirmed && <Text>Transaction confirmed.</Text>} */}
             </BottomSheetView>
           </BottomSheetModal>
         </BottomSheetModalProvider>
