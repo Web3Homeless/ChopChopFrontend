@@ -1,9 +1,11 @@
 import React from "react";
-import { View, Image, Text } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { View, Image, Text, Pressable } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 export default function NavigationBar() {
   const route = useRoute();
+  const navigation = useNavigation();
+
   return (
     <View
       style={{
@@ -19,13 +21,17 @@ export default function NavigationBar() {
         paddingBottom: "5%",
       }}
     >
-      <View
+      <Pressable
         style={{
           flexDirection: "row",
           gap: 30,
           marginRight: "auto",
           paddingLeft: 15,
           paddingTop: 15,
+        }}
+        onPress={() => {
+          // @ts-ignore
+          navigation.navigate("Groups");
         }}
       >
         <View
@@ -90,18 +96,27 @@ export default function NavigationBar() {
             />
           )}
         </View>
-      </View>
-      <Image
-        source={require("../assets/navigation/button-add.png")}
+      </Pressable>
+      <Pressable
         style={{
-          width: 81,
-          height: 81,
           zIndex: 2,
           position: "absolute",
           top: "-50%",
           left: "40%",
         }}
-      />
+        onPress={() => {
+          // @ts-ignore
+          navigation.navigate("CreateNewGroup");
+        }}
+      >
+        <Image
+          source={require("../assets/navigation/button-add.png")}
+          style={{
+            width: 81,
+            height: 81,
+          }}
+        />
+      </Pressable>
       <View
         style={{
           flexDirection: "row",
@@ -111,13 +126,17 @@ export default function NavigationBar() {
           paddingTop: 15,
         }}
       >
-        <View
+        <Pressable
           style={{
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             gap: 5,
             padding: 5,
+          }}
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate("History");
           }}
         >
           <Image
@@ -141,14 +160,18 @@ export default function NavigationBar() {
               }}
             />
           )}
-        </View>
-        <View
+        </Pressable>
+        <Pressable
           style={{
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             gap: 5,
             padding: 5,
+          }}
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate("Account");
           }}
         >
           <Image
@@ -172,7 +195,7 @@ export default function NavigationBar() {
               }}
             />
           )}
-        </View>
+        </Pressable>
       </View>
     </View>
   );
