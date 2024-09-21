@@ -1,6 +1,7 @@
 import React from "react";
 import { Pressable, View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useGroupsStore } from "../store/groupsStore";
 
 export default function GroupsItem({
   id,
@@ -18,6 +19,8 @@ export default function GroupsItem({
   isSettled: boolean;
 }) {
   const navigation = useNavigation();
+  const groupsStore = useGroupsStore();
+
   return (
     <Pressable
       style={{
@@ -129,6 +132,9 @@ export default function GroupsItem({
                 backgroundColor: "#D9D9D9",
                 padding: 14,
                 borderRadius: 5,
+              }}
+              onPress={() => {
+                groupsStore.setGroups(groupsStore.groups.filter(x => x.id != id));
               }}
             >
               <Image
