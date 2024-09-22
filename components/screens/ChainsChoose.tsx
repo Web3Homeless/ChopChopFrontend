@@ -58,7 +58,7 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
     },
     {
       id: "optimism",
-      image: require("../../assets/chains/flow.png"),
+      image: require("../../assets/chains/optimism.png"),
       text: "Optimism Main Network",
     },
   ];
