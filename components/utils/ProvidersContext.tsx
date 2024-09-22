@@ -1,7 +1,4 @@
-import {
-  AppKit,
-  createAppKit,
-} from "@reown/appkit-wagmi-react-native";
+import { AppKit, createAppKit } from "@reown/appkit-wagmi-react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import { mainnet } from "viem/chains";

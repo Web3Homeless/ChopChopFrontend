@@ -3,6 +3,10 @@ import React from "react";
 import { mainnet } from "viem/chains";
 import { useEnsName } from "wagmi";
 
+const shortenAddress = (address: string) => {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+};
+
 export default function PaymentItem({
   date,
   place,
@@ -90,7 +94,7 @@ export default function PaymentItem({
               color: "black",
             }}
           >
-            {ensName || paidBy}
+            {ensName || shortenAddress(paidBy)}
           </Text>
         </View>
         <View

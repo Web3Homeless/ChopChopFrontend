@@ -7,6 +7,10 @@ import { TextInput } from "react-native-gesture-handler";
 import { useAccount } from "wagmi";
 import PaymentRow from "../friends/PaymentRow";
 
+const shortenAddress = (address: string) => {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+};
+
 export default function AddExpense({ route }: any) {
   const nav = useNavigation() as any;
   const account = useAccount();
