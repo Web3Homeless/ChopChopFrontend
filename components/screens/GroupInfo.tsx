@@ -18,7 +18,6 @@ import LogoBlueSVG from "../../assets/logo-blue-svg.svg";
 import NavigationBar from "../NavigationBar";
 import ParticipantItem from "../ParticipantItem";
 import { useReadContract, useSignTypedData, useWriteContract } from "wagmi";
-import { writeContract } from "viem/actions";
 import { useSelectionsStore } from "../../store/userSelectionsStore";
 import { erc20Abi } from "viem";
 import { bsc } from "viem/chains";
@@ -31,23 +30,7 @@ export default function GroupInfo({ route }: any) {
   const store = useGroupsStore();
   const group = store.groups.find((g) => g.id == groupId);
   const [page, setPage] = useState<"payments" | "participants">("payments");
-  const selectionStore = useSelectionsStore();
-  const { data: hash, writeContract, error } = useWriteContract();
-  const { signTypedData, data: signature } = useSignTypedData();
-  console.log("Signaturee", signature);
 
-  const inchRouter =
-    "0x111111125421ca6dc452d289314280a0f8842a65" as `0x${string}`;
-
-  const sum = BigInt(10) * BigInt(10) ** BigInt(18);
-
-  const { data: allowance } = useReadContract({
-    address: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d" as `0x${string}`,
-    abi: erc20Abi,
-    functionName: "allowance",
-    args: ["0x06d562bca72f4857e9c1998027f8339b63ac9403", inchRouter],
-    chainId: bsc.id,
-  });
   const account = useAccount();
 
   const allDebts = group!.bills.flatMap((x) => billToDebts(x));
@@ -150,101 +133,10 @@ export default function GroupInfo({ route }: any) {
             <Text
               style={{ fontSize: 18, fontFamily: "Arame", color: "white" }}
               onPress={async () => {
-                console.log("Settle up");
-                if (!allowance || allowance < sum) {
-                  writeContract({
-                    address:
-                      "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d" as `0x${string}`,
-                    abi: erc20Abi,
-                    functionName: "approve",
-                    args: ["0x111111125421ca6dc452d289314280a0f8842a65", sum],
-                    chain: bsc,
-                  });
-                } else {
-                  const txHash2 = signTypedData({
-                    primaryType: "Order",
-                    types: {
-                      EIP712Domain: [
-                        {
-                          name: "name",
-                          type: "string",
-                        },
-                        {
-                          name: "version",
-                          type: "string",
-                        },
-                        {
-                          name: "chainId",
-                          type: "uint256",
-                        },
-                        {
-                          name: "verifyingContract",
-                          type: "address",
-                        },
-                      ],
-                      Order: [
-                        {
-                          name: "salt",
-                          type: "uint256",
-                        },
-                        {
-                          name: "maker",
-                          type: "address",
-                        },
-                        {
-                          name: "receiver",
-                          type: "address",
-                        },
-                        {
-                          name: "makerAsset",
-                          type: "address",
-                        },
-                        {
-                          name: "takerAsset",
-                          type: "address",
-                        },
-                        {
-                          name: "makingAmount",
-                          type: "uint256",
-                        },
-                        {
-                          name: "takingAmount",
-                          type: "uint256",
-                        },
-                        {
-                          name: "makerTraits",
-                          type: "uint256",
-                        },
-                      ],
-                    },
-                    domain: {
-                      name: "1inch Aggregation Router",
-                      version: "6",
-                      chainId: 56n,
-                      verifyingContract:
-                        "0x111111125421ca6dc452d289314280a0f8842a65",
-                    },
-                    message: {
-                      maker: "0x06d562bca72f4857e9c1998027f8339b63ac9403",
-                      makerAsset: "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
-                      takerAsset: "0xda0000d4000015a526378bb6fafc650cea5966f8",
-                      makerTraits:
-                        62419173104490761595518734106280306931356796375714656674690632578774914301952n,
-                      salt: 9445680529265955095560008012004695665255910860498075838760989048188713150507n,
-                      makingAmount: 10000000000000000000n,
-                      takingAmount: 8579119n,
-                      receiver: "0x0000000000000000000000000000000000000000",
-                    },
-                  });
-
-                  const data = await fetch('http://localhost:3000/inch_fusion/send_quote', {
-                    method: 'POST'
-                  })
-                  console.log('Data', data.body)
-                }
+ 
               }}
             >
-              SETTLE UP p{hash} {error?.message} {signature}
+              SETTLE UP
             </Text>
           </Pressable>
           <Pressable

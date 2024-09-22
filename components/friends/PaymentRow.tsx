@@ -8,6 +8,10 @@ type Props = {
   setAmount: (value: string) => void;
 };
 
+const shortenAddress = (address: string) => {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+};
+
 export default function PaymentRow({ address, setAmount }: Props) {
   const { data: name } = useEnsName({
     address: address as any,
@@ -29,7 +33,7 @@ export default function PaymentRow({ address, setAmount }: Props) {
           fontFamily: "Roboto",
         }}
       >
-        {name || address}
+        {name || shortenAddress(address)}
       </Text>
       <TextInput
         placeholder="0.00"

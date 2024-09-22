@@ -12,6 +12,10 @@ type Props = {
   };
 };
 
+const shortenAddress = (address: string) => {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+};
+
 export default function ParticipantItem({
   avatarId,
   participantAddr,
@@ -48,7 +52,7 @@ export default function ParticipantItem({
           marginRight: "auto",
         }}
       >
-        {name || participantAddr}
+        {name || shortenAddress(participantAddr)}
       </Text>
       <View style={{ flexDirection: "column", gap: 3 }}>
         <Text

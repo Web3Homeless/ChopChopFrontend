@@ -52,9 +52,9 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
       text: "Gnosis Chain",
     },
     {
-      id: "linea",
-      image: require("../../assets/chains/linea.png"),
-      text: "Linea Main Network",
+      id: "flow",
+      image: require("../../assets/chains/flow.png"),
+      text: "Flow Network",
     },
     {
       id: "optimism",
@@ -161,9 +161,8 @@ export default function ChainsChoose({ navigation }: { navigation: any }) {
               paddingVertical: 13,
             }}
             onPress={() => {
-              navigation.navigate("TokensChoose", { name: "TokensChoose" })
-            }
-            }
+              navigation.navigate("TokensChoose", { name: "TokensChoose" });
+            }}
           >
             <Text
               style={{
