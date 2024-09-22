@@ -44,7 +44,7 @@ export default function Home({ navigation }: any) {
           }}
         >
           <Button
-            title={"CONNECT WALLET"}
+            title={"START"}
             color={"#2F28D0"}
             onPress={() => {
               navigation.navigate("ChainsChoose", { name: "ChainsChoose" });

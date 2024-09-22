@@ -30,23 +30,7 @@ export default function GroupInfo({ route }: any) {
   const store = useGroupsStore();
   const group = store.groups.find((g) => g.id == groupId);
   const [page, setPage] = useState<"payments" | "participants">("payments");
-  const selectionStore = useSelectionsStore();
-  const { data: hash, writeContract, error } = useWriteContract();
-  const { signTypedData, data: signature } = useSignTypedData();
-  console.log("Signaturee", signature);
 
-  const inchRouter =
-    "0x111111125421ca6dc452d289314280a0f8842a65" as `0x${string}`;
-
-  const sum = BigInt(10) * BigInt(10) ** BigInt(18);
-
-  const { data: allowance } = useReadContract({
-    address: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d" as `0x${string}`,
-    abi: erc20Abi,
-    functionName: "allowance",
-    args: ["0x06d562bca72f4857e9c1998027f8339b63ac9403", inchRouter],
-    chainId: bsc.id,
-  });
   const account = useAccount();
 
   const allDebts = group!.bills.flatMap((x) => billToDebts(x));
