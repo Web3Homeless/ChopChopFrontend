@@ -105,7 +105,7 @@ export default function SettleUp() {
           items={[
             {
               userAddress: "Alexander Savinchuk",
-              amount: 214.12,
+              amount: 100,
             },
           ]}
         />
@@ -115,8 +115,8 @@ export default function SettleUp() {
           userFavoriteNetwork={userFavoriteNetwork}
           items={[
             {
-              userAddress: "Alexander Savinchuk",
-              amount: 614.12,
+              userAddress: "Andrey",
+              amount: 100,
             },
           ]}
         />
