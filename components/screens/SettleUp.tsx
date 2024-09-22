@@ -11,6 +11,11 @@ import flowImg from "../../assets/chains/flow.png";
 import bnbImg from "../../assets/chains/bnb.png";
 import polygonImg from "../../assets/chains/polygon.png";
 import gnosisImg from "../../assets/chains/gnosis.png";
+import { useReadContract, useSignTypedData, useWriteContract } from "wagmi";
+import { useSelectionsStore } from "../../store/userSelectionsStore";
+import { erc20Abi } from "viem";
+import { bsc } from "viem/chains";
+import { useAccount } from "wagmi";
 
 const chains = [
   ethereumImg,
@@ -35,6 +40,7 @@ const texts = [
 ];
 
 export default function SettleUp() {
+  
   const userFavoriteNetwork = Chains.bnb;
   return (
     <SafeAreaView
